@@ -36,6 +36,7 @@ import module namespace ntriples2trix = "http://3windmills.com/rdfxq/modules/ntr
 
 
 import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
+import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
 
 
 (: NAMESPACES :)
@@ -99,7 +100,9 @@ let $source-trix :=
         $source
      
 let $output := 
-    if ($o eq "ntriples") then
+    if ($o eq "rdfxml") then
+        trix2rdfxml:trix2rdfxml($source-trix)
+    else if ($o eq "ntriples") then
         trix2ntriples:trix2ntriples($source-trix)
     else
         $source-trix
