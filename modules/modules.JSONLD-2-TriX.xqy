@@ -9,6 +9,10 @@ declare option output:indent "yes";
 (:
 See here for example JSON LD files:
 https://github.com/ruby-rdf/json-ld/tree/develop/example-files
+
+Another example here: http://wiki.teria.no/display/inloc/JSON-LD
+And here: http://robtweed.wordpress.com/2013/11/20/creating-json-ld-documents-from-within-mumps/
+
 :)
 
 declare function local:parseList($list)
