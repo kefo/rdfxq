@@ -6,6 +6,11 @@ declare namespace as = "http://www.w3.org/2005/xpath-functions";
 declare namespace output = "http://www.w3.org/2010/xslt-xquery-serialization";
 declare option output:indent "yes";
 
+(:
+See here for example JSON LD files:
+https://github.com/ruby-rdf/json-ld/tree/develop/example-files
+:)
+
 declare function local:parseList($list)
 {
   
