@@ -50,9 +50,7 @@ declare function rdfxml2trix:rdfxml2trix(
         return rdfxml2trix:parse_class($i, "")
     let $trix := 
         element trix:TriX {
-            element trix:graph {
-                $triples
-            }
+            $triples
         }
     return $trix
 };

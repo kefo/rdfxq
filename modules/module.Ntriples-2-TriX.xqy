@@ -54,9 +54,7 @@ declare function ntriples2trix:ntriples2trix(
             
     let $trix := 
         element trix:TriX {
-            element trix:graph {
-                $triples
-            }
+            $triples
         }
     return $trix
 };
