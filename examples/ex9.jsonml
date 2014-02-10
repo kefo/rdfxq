@@ -1,0 +1,74 @@
+{
+  "@context": "http://wiki.teria.no/download/attachments/27165179/InLOC_context.jsonld",
+  "@type": "LOCstructure",
+  "@id": "http://www.example.com/abilities/winegrower/1",
+  "@language": "en",
+  "title":
+  {
+    "en": "Wine grower (m/f)",
+    "de": "Winzer/Winzerin"
+  },
+  "description":
+  {
+    "en": "Structure of the skills and competences required for the Final examination in the state-recognized training occupation: Wine grower (m/f)"
+  },
+  "comment": 
+  [
+    "note: This is presented as if it were a structure owned by this German agency.",
+    "While the content is taken from the document referenced,",
+    "it has been created as part of the InLOC project:",
+    "see http://wiki.teria.no/display/inloc/Home",
+    "and is based on work done for the eCOTOOL project:",
+    "see http://www.competencetools.eu/"
+  ],
+  "furtherInformation": "http://www.bibb.de/redaktion/ze/en/winzer_e.pdf",
+  "rights":
+  {
+    "de": "© Bundesagentur für Arbeit",
+    "en": "© Federal Employment Agency"
+  },
+  "created": "2010-08-17T00:00:00",
+  "version": "2.0",
+  "publisher":
+  {
+    "@id": "http://www.arbeitsagentur.de/"
+  },
+  "contributor":
+  [
+    {
+	"label": {"it":"Chiara Carlino"}
+    },
+    {
+	"label": {"en":"Simon Grant"}
+    }
+  ],
+  "level":
+  {
+    "hasScheme": {
+      "@id": "http://www.uis.unesco.org/Education/Pages/international-standard-classification-of-education.aspx",
+      "label": {"en":"ISCED 2011"}
+    },
+    "hasObject": {
+      "@id": "http://www.uis.unesco.org/Education/ISCED/2011#35",
+      "comment": "this identifier is invented here",
+      "label": {"en":"ISCED level 3, Vocational (35)"}
+    },
+    "number": "3"
+  },
+  "hasLOCpart":
+  [
+    "http://www.example.com/abilities/winegrower/109",
+    "http://www.example.com/abilities/winegrower/111",
+    "http://www.example.com/abilities/winegrower/113",
+    "http://www.example.com/abilities/winegrower/115",
+    "http://www.example.com/abilities/winegrower/117",
+    "http://www.example.com/abilities/winegrower/119",
+    "http://www.example.com/abilities/winegrower/121",
+    "http://www.example.com/abilities/winegrower/123",
+    "http://www.example.com/abilities/winegrower/125",
+    "http://www.example.com/abilities/winegrower/127",
+    "http://www.example.com/abilities/winegrower/129",
+    "http://www.example.com/abilities/winegrower/131",
+    "http://www.example.com/abilities/winegrower/133"
+  ]
+}

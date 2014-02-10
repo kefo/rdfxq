@@ -1,0 +1,1015 @@
+{
+  "@context": {
+    "@vocab": "http://www.w3.org/ns/earl#",
+    "foaf:homepage": {
+      "@type": "@id"
+    },
+    "dc": "http://purl.org/dc/terms/",
+    "doap": "http://usefulinc.com/ns/doap#",
+    "earl": "http://www.w3.org/ns/earl#",
+    "mf": "http://www.w3.org/2001/sw/DataAccess/tests/test-manifest#",
+    "foaf": "http://xmlns.com/foaf/0.1/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "assertedBy": {
+      "@type": "@id"
+    },
+    "assertions": {
+      "@type": "@id",
+      "@container": "@list"
+    },
+    "bibRef": {
+      "@id": "dc:bibliographicCitation"
+    },
+    "created": {
+      "@id": "doap:created",
+      "@type": "xsd:date"
+    },
+    "description": {
+      "@id": "dc:description",
+      "@language": "en"
+    },
+    "developer": {
+      "@id": "doap:developer",
+      "@type": "@id",
+      "@container": "@set"
+    },
+    "doapDesc": {
+      "@id": "doap:description",
+      "@language": "en"
+    },
+    "generatedBy": {
+      "@type": "@id"
+    },
+    "homepage": {
+      "@id": "doap:homepage",
+      "@type": "@id"
+    },
+    "label": {
+      "@id": "rdfs:label",
+      "@language": "en"
+    },
+    "language": {
+      "@id": "doap:programming-language"
+    },
+    "license": {
+      "@id": "doap:license",
+      "@type": "@id"
+    },
+    "mode": {
+      "@type": "@id"
+    },
+    "name": {
+      "@id": "doap:name"
+    },
+    "outcome": {
+      "@type": "@id"
+    },
+    "release": {
+      "@id": "doap:release",
+      "@type": "@id"
+    },
+    "shortdesc": {
+      "@id": "doap:shortdesc",
+      "@language": "en"
+    },
+    "subject": {
+      "@type": "@id"
+    },
+    "test": {
+      "@type": "@id"
+    },
+    "testAction": {
+      "@id": "mf:action",
+      "@type": "@id"
+    },
+    "testResult": {
+      "@id": "mf:result",
+      "@type": "@id"
+    },
+    "entries": {
+      "@id": "mf:entries",
+      "@type": "@id",
+      "@container": "@list"
+    },
+    "testSubjects": {
+      "@type": "@id",
+      "@container": "@list"
+    },
+    "title": {
+      "@id": "dc:title"
+    },
+    "xsd": {
+      "@id": "http://www.w3.org/2001/XMLSchema#"
+    }
+  },
+  "@id": "",
+  "@type": [
+    "earl:Software",
+    "doap:Project"
+  ],
+  "name": "JSON-LD",
+  "bibRef": "[[JSON-LD-API]]",
+  "generatedBy": {
+    "@id": "http://rubygems.org/gems/earl-report",
+    "@type": "doap:Project",
+    "name": "earl-report",
+    "shortdesc": "Earl Report summary generator",
+    "doapDesc": "EarlReport generates HTML+RDFa rollups of multiple EARL reports",
+    "homepage": "https://github.com/gkellogg/earl-report",
+    "language": "Ruby",
+    "license": "http://unlicense.org",
+    "release": {
+      "@id": "https://github.com/gkellogg/earl-report/tree/0.2.7.2",
+      "@type": "doap:Version",
+      "name": "earl-report-0.2.7.2",
+      "created": "2013-10-22",
+      "revision": "0.2.7.2"
+    },
+    "developer": {
+      "@type": "foaf:Person",
+      "@id": "http://greggkellogg.net/foaf#me",
+      "foaf:name": "Gregg Kellogg",
+      "foaf:homepage": "http://greggkellogg.net/"
+    }
+  },
+  "assertions": [
+    "csharp-earl.ttl",
+    "earl.ttl",
+    "java-earl.ttl",
+    "jsonld.js-browser-earl.ttl",
+    "jsonld.js-node.js-earl.ttl",
+    "markus-earl.ttl",
+    "php-json-ld-earl.ttl",
+    "pyld-earl.ttl",
+    "rdflib-jsonld-earl.ttl",
+    "ruby-earl.ttl"
+  ],
+  "testSubjects": [
+    {
+      "@id": "http://argodata.com/product/json-ld",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "Argo.Core.JsonLd",
+      "developer": [
+        {
+          "@type": "foaf:Organization",
+          "@id": "http://argodata.com/foaf",
+          "foaf:name": "Argo Data Resource Corporation",
+          "foaf:homepage": "http://www.argodata.com/"
+        },
+        {
+          "@type": "foaf:Person",
+          "@id": "http://argodata.com/foaf",
+          "foaf:name": "Argo Data Resource Corporation",
+          "foaf:homepage": "http://www.argodata.com/"
+        }
+      ],
+      "doapDesc": "Argo.Core.JsonLd library for parsing/serializing JSON-LD data in .Net.",
+      "homepage": "http://www.argodata.com/",
+      "language": "C#"
+    },
+    {
+      "@id": "http://github.com/jsonld-java/jsonld-java",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "JSONLD-Java",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "http://tristan.github.com/foaf#me",
+          "foaf:name": "Tristan King",
+          "foaf:homepage": "http://tristan.github.com"
+        },
+        {
+          "@type": "foaf:Person",
+          "@id": "https://github.com/ansell/foaf#me",
+          "foaf:name": "Peter Ansell"
+        }
+      ],
+      "homepage": "http://github.com/jsonld-java/jsonld-java",
+      "language": "Java"
+    },
+    {
+      "@id": "http://rubygems.org/gems/json-ld",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "JSON::LD",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "http://greggkellogg.net/foaf#me",
+          "foaf:name": "Gregg Kellogg"
+        }
+      ],
+      "doapDesc": "RDF.rb plugin for parsing/serializing JSON-LD data.",
+      "homepage": "http://github.com/ruby-rdf/json-ld/"
+    },
+    {
+      "@id": "https://github.com/RDFLib/rdflib-jsonld#it",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "RDFLib-JSONLD",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "http://neverspace.net/id#self",
+          "foaf:name": "Niklas Lindström"
+        }
+      ],
+      "homepage": "https://github.com/RDFLib/rdflib-jsonld",
+      "language": "Python"
+    },
+    {
+      "@id": "https://github.com/digitalbazaar/jsonld.js#browser",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "jsonld.js browser",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "https://github.com/dlongley",
+          "foaf:name": "Dave Longley",
+          "foaf:homepage": "https://github.com/dlongley"
+        }
+      ],
+      "doapDesc": "A JSON-LD processor for JavaScript",
+      "homepage": "https://github.com/digitalbazaar/jsonld.js",
+      "language": "JavaScript"
+    },
+    {
+      "@id": "https://github.com/digitalbazaar/jsonld.js#node.js",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "jsonld.js node.js",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "https://github.com/dlongley",
+          "foaf:name": "Dave Longley",
+          "foaf:homepage": "https://github.com/dlongley"
+        }
+      ],
+      "doapDesc": "A JSON-LD processor for JavaScript",
+      "homepage": "https://github.com/digitalbazaar/jsonld.js",
+      "language": "JavaScript"
+    },
+    {
+      "@id": "https://github.com/digitalbazaar/php-json-ld",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "php-json-ld",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "https://github.com/dlongley",
+          "foaf:name": "Dave Longley",
+          "foaf:homepage": "https://github.com/dlongley"
+        }
+      ],
+      "doapDesc": "A JSON-LD processor for PHP",
+      "homepage": "https://github.com/digitalbazaar/php-json-ld",
+      "language": "PHP"
+    },
+    {
+      "@id": "https://github.com/digitalbazaar/pyld",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "PyLD",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "https://github.com/dlongley",
+          "foaf:name": "Dave Longley",
+          "foaf:homepage": "https://github.com/dlongley"
+        }
+      ],
+      "doapDesc": "A JSON-LD processor for Python",
+      "homepage": "https://github.com/digitalbazaar/pyld",
+      "language": "Python"
+    },
+    {
+      "@id": "https://github.com/lanthaler/JsonLD",
+      "@type": [
+        "earl:TestSubject",
+        "doap:Project"
+      ],
+      "name": "JsonLD",
+      "developer": [
+        {
+          "@type": "foaf:Person",
+          "@id": "http://me.markus-lanthaler.com/",
+          "foaf:name": "Markus Lanthaler",
+          "foaf:homepage": "http://www.markus-lanthaler.com/"
+        }
+      ],
+      "doapDesc": "JSON-LD processor for PHP",
+      "homepage": "https://github.com/lanthaler/JsonLD",
+      "language": "PHP"
+    }
+  ],
+  "entries": [
+    {
+      "@id": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld",
+      "@type": [
+        "earl:Report",
+        "mf:Manifest"
+      ],
+      "entries": [
+        {
+          "@id": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#CompactTest"
+          ],
+          "title": "drop free-floating nodes",
+          "testAction": "http://json-ld.org/test-suite/tests/compact-0001-in.jsonld",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:untested"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://tristan.github.com/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:notAvailable",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:untested"
+              }
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/compact-manifest.jsonld#t0001",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0014",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0014",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0014",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "Do not convert list nodes to @list if nodes contain more than one value for rdf:rest.",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0014-out.jsonld"
+        },
+        {
+          "@id": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#FromRDFTest"
+          ],
+          "title": "List pattern with IRI rdf:rest",
+          "testAction": "http://json-ld.org/test-suite/tests/fromRdf-0015-in.nq",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://tristan.github.com/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://neverspace.net/id#self"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0015",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "Do not convert lists to @list if a list node's rdf:rest is an IRI.",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0015-out.jsonld"
+        },
+        {
+          "@id": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#FromRDFTest"
+          ],
+          "title": "List pattern with type rdf:List",
+          "testAction": "http://json-ld.org/test-suite/tests/fromRdf-0016-in.nq",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://tristan.github.com/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://neverspace.net/id#self"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0016",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "List nodes may have a rdf:type rdf:List.",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0016-out.jsonld"
+        },
+        {
+          "@id": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#FromRDFTest"
+          ],
+          "title": "Remove duplicate triples",
+          "testAction": "http://json-ld.org/test-suite/tests/fromRdf-0017-in.nq",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://tristan.github.com/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://neverspace.net/id#self"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0017",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "Equivalent triples are used only once",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0017-out.jsonld"
+        },
+        {
+          "@id": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#FromRDFTest"
+          ],
+          "title": "use native types flag set to true",
+          "testAction": "http://json-ld.org/test-suite/tests/fromRdf-0018-in.nq",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://tristan.github.com/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://neverspace.net/id#self"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0018",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "Literals with datatype xsd:boolean, xsd:integer, and xsd:double are serialized using native scalar values",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0018-out.jsonld"
+        },
+        {
+          "@id": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+          "@type": [
+            "earl:TestCriterion",
+            "earl:TestCase",
+            "http://json-ld.org/test-suite/vocab#FromRDFTest"
+          ],
+          "title": "use rdf:type flag set to false",
+          "testAction": "http://json-ld.org/test-suite/tests/fromRdf-0019-in.nq",
+          "assertions": [
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "http://argodata.com/product/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://argodata.com/foaf"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "http://github.com/jsonld-java/jsonld-java",
+              "mode": "earl:notAvailable",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:untested"
+              }
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "http://rubygems.org/gems/json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://greggkellogg.net/foaf#me"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/RDFLib/rdflib-jsonld#it",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://neverspace.net/id#self"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#browser",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/digitalbazaar/jsonld.js#node.js",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/digitalbazaar/php-json-ld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/digitalbazaar/pyld",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "https://github.com/dlongley"
+            },
+            {
+              "@type": "earl:Assertion",
+              "test": "http://json-ld.org/test-suite/tests/fromRdf-manifest.jsonld#t0019",
+              "subject": "https://github.com/lanthaler/JsonLD",
+              "mode": "earl:automatic",
+              "result": {
+                "@type": "earl:TestResult",
+                "outcome": "earl:passed"
+              },
+              "assertedBy": "http://me.markus-lanthaler.com/"
+            }
+          ],
+          "description": "Setting useRdfType to true causes an rdf:type predicate to be treated like a normal property, not @type",
+          "testResult": "http://json-ld.org/test-suite/tests/fromRdf-0019-out.jsonld"
+        }
+      ],
+      "title": "Transform RDF to JSON-LD",
+      "description": "Transform RDF to JSON-LD tests take N-Quads input and use object comparison."
+    }
+  ]
+}

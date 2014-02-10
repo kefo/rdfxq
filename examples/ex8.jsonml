@@ -1,0 +1,117 @@
+{
+  "@context": {
+    "@base": "http://livevista.caregraf.info/",
+    "@vocab": "http://datasets.caregraf.org/vs/",
+    "date_time_vitals_entered-120_5": {
+      "@type": "xsd:dateTime"
+    },
+    "date_time_vitals_taken-120_5": {
+      "@type": "xsd:dateTime"
+    },
+    "entered_by-120_5": {
+      "@type": "@id"
+    },
+    "fmso": "http://datasets.caregraf.org/fmso/",
+    "generatedAt": {
+      "@id": "prov:generatedAtTime",
+      "@type": "xsd#date"
+    },
+    "hospital_location-120_5": {
+      "@type": "@id"
+    },
+    "id": "@id",
+    "label": {
+      "@id": "rdfs:label"
+    },
+    "list": "@list",
+    "owl": "http://www.w3.org/2002/07/owl#",
+    "patient-120_5": {
+      "@type": "@id"
+    },
+    "prov": "http://www.w3.org/ns/prov#",
+    "qualifier-120_5": {
+      "@container": "@list",
+      "@type": "@id"
+    },
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "sameAs": {
+      "@id": "owl:sameAs",
+      "@type": "@id"
+    },
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "type": "@type",
+    "va": "http://schemes.caregraf.info/va/",
+    "value": "@value",
+    "vital_type-120_5": {
+      "@type": "@id"
+    },
+    "vs": "http://datasets.caregraf.org/vs/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "date_time_vitals_entered-120_5": "2008-04-01T07:12:22Z",
+      "date_time_vitals_taken-120_5": "2008-04-01T07:12:06Z",
+      "entered_by-120_5": "200-64",
+      "hospital_location-120_5": "44-23",
+      "id": "120_5-284",
+      "label": "2008-04-01T07:12:06Z",
+      "patient-120_5": "2-9",
+      "qualifier-120_5": [
+        "120_52-6"
+      ],
+      "rate-120_5": 101,
+      "type": "vs:120_5",
+      "vital_type-120_5": "120_51-2"
+    },
+    {
+      "date_time_vitals_entered-120_5": "2008-04-01T07:12:22Z",
+      "date_time_vitals_taken-120_5": "2008-04-01T07:12:06Z",
+      "entered_by-120_5": "200-64",
+      "hospital_location-120_5": "44-23",
+      "id": "120_5-285",
+      "label": "2008-04-01T07:12:06Z",
+      "patient-120_5": "2-9",
+      "qualifier-120_5": [
+        "120_52-59",
+        "120_52-50"
+      ],
+      "rate-120_5": 98,
+      "type": "vs:120_5",
+      "vital_type-120_5": "120_51-5"
+    },
+    {
+      "id": "120_52-64",
+      "label": "CUFF",
+      "type": "vs:120_52"
+    },
+    {
+      "id": "120_52-66",
+      "label": "ADULT",
+      "type": "vs:120_52"
+    },
+    {
+      "id": "120_52-59",
+      "label": "PALPATED",
+      "sameAs": "va:4688669",
+      "type": "vs:120_52"
+    },
+    {
+      "id": "vs:120_51",
+      "label": "GMRV VITAL TYPE",
+      "type": "fmso:File"
+    },
+    {
+      "id": "vs:2",
+      "label": "PATIENT",
+      "type": "fmso:File"
+    },
+    {
+      "id": "va:4688703",
+      "label": "GMRV VITAL QUALIFIER-SITTING",
+      "type": "skos:Concept"
+    }
+  ],
+  "generatedAt": "2013-11-20",
+  "id": "fmql__T120_5__F.02=2-9&.01>2008-04-01__O0__C10"
+}

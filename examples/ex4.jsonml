@@ -1,0 +1,15 @@
+{
+  "@context": { "@vocab": "http://schema.org/" } ,
+  "@type": "Person",
+  "name": "John Doe",
+  "jobTitle": "Graduate research assistant",
+  "affiliation": "University of Dreams",
+  "additionalName": "Johnny",
+  "url": "http://www.example.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1234 Peach Drive",
+    "addressLocality": "Wonderland",
+    "addressRegion": "Georgia"
+  }
+}
