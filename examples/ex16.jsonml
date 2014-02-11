@@ -1,0 +1,210 @@
+{
+  "@context": {
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "madsrdf": "http://www.loc.gov/mads/rdf/v1#",
+    "ri": "http://id.loc.gov/ontologies/RecordInfo#",
+    "skos": "http://www.w3.org/2004/02/skos/core#",
+    "http://www.loc.gov/mads/rdf/v1#componentList": { "@container": "@list" },
+    "http://www.loc.gov/mads/rdf/v1#elementValue": { "@language": "en" }
+  },
+  "@graph": [
+    {
+      "@id": "http://id.loc.gov/authorities/subjects/sh85148273",
+      "@type": [
+        "http://www.loc.gov/mads/rdf/v1#Topic",
+        "http://www.loc.gov/mads/rdf/v1#Authority"
+      ],
+      "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": {
+        "@language": "en",
+        "@value": "World War, 1939-1945"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "World War, 1939-1945"
+      }
+    },
+    {
+      "@id": "http://id.loc.gov/authorities/subjects/sh95007336",
+      "@type": [
+        "http://www.loc.gov/mads/rdf/v1#ComplexSubject",
+        "http://www.w3.org/2004/02/skos/core#Concept",
+        "http://www.loc.gov/mads/rdf/v1#Authority"
+      ],
+      "http://id.loc.gov/vocabulary/identifiers/lccn": "sh 95007336",
+      "http://www.loc.gov/mads/rdf/v1#adminMetadata": {
+        "@type": "http://id.loc.gov/ontologies/RecordInfo#RecordInfo",
+        "http://id.loc.gov/ontologies/RecordInfo#recordChangeDate": {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "1995-08-28T00:00:00"
+        },
+        "http://id.loc.gov/ontologies/RecordInfo#recordContentSource": {
+          "@id": "http://id.loc.gov/vocabulary/organizations/dhmm"
+        },
+        "http://id.loc.gov/ontologies/RecordInfo#recordStatus": {
+          "@type": "http://www.w3.org/2001/XMLSchema#string",
+          "@value": "new"
+        }
+      },
+      "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": {
+        "@language": "en",
+        "@value": "World War, 1939-1945--Concentration camps--Liberation"
+      },
+      "http://www.loc.gov/mads/rdf/v1#componentList": 
+        [
+          {
+            "@id": "http://id.loc.gov/authorities/subjects/sh85148273"
+          },
+          {
+            "@id": "http://id.loc.gov/authorities/subjects/sh85029589"
+          },
+          {
+            "@type": [
+              "http://www.loc.gov/mads/rdf/v1#Topic",
+              "http://www.loc.gov/mads/rdf/v1#Authority"
+            ],
+            "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": {
+              "@language": "en",
+              "@value": "Liberation"
+            },
+            "http://www.loc.gov/mads/rdf/v1#elementList": {
+              "@list": [
+                {
+                  "@type": "http://www.loc.gov/mads/rdf/v1#TopicElement",
+                  "http://www.loc.gov/mads/rdf/v1#elementValue": "Liberation"
+                }
+              ]
+            }
+          }
+        ],
+      "http://www.loc.gov/mads/rdf/v1#hasCloseExternalAuthority": {
+        "@id": "http://data.bnf.fr/ark:/12148/cb12526909r"
+      },
+      "http://www.loc.gov/mads/rdf/v1#hasSource": [
+        {
+          "@type": "http://www.loc.gov/mads/rdf/v1#Source",
+          "http://www.loc.gov/mads/rdf/v1#citation-source": "Work cat.: Liberation of the Nazi concentration camps 1945, 1987.",
+          "http://www.loc.gov/mads/rdf/v1#citation-status": "found"
+        },
+        {
+          "@type": "http://www.loc.gov/mads/rdf/v1#Source",
+          "http://www.loc.gov/mads/rdf/v1#citation-source": "The liberators, eyewitness accounts of the liberation of concentration camps, 1981.",
+          "http://www.loc.gov/mads/rdf/v1#citation-status": "found"
+        },
+        {
+          "@type": "http://www.loc.gov/mads/rdf/v1#Source",
+          "http://www.loc.gov/mads/rdf/v1#citation-source": "Liberation of KZ Dachau, 1990.",
+          "http://www.loc.gov/mads/rdf/v1#citation-status": "found"
+        }
+      ],
+      "http://www.loc.gov/mads/rdf/v1#hasVariant": {
+        "@type": [
+          "http://www.loc.gov/mads/rdf/v1#Topic",
+          "http://www.loc.gov/mads/rdf/v1#Variant"
+        ],
+        "http://www.loc.gov/mads/rdf/v1#elementList": {
+          "@list": [
+            {
+              "@type": "http://www.loc.gov/mads/rdf/v1#TopicElement",
+              "http://www.loc.gov/mads/rdf/v1#elementValue": "Liberation of World War II concentration camps"
+            }
+          ]
+        },
+        "http://www.loc.gov/mads/rdf/v1#variantLabel": {
+          "@language": "en",
+          "@value": "Liberation of World War II concentration camps"
+        }
+      },
+      "http://www.loc.gov/mads/rdf/v1#isMemberOfMADSCollection": [
+        {
+          "@id": "http://id.loc.gov/authorities/subjects/collection_LCSH_General"
+        },
+        {
+          "@id": "http://id.loc.gov/authorities/subjects/collection_SubdivideGeographically"
+        },
+        {
+          "@id": "http://id.loc.gov/authorities/subjects/collection_LCSHAuthorizedHeadings"
+        }
+      ],
+      "http://www.loc.gov/mads/rdf/v1#isMemberOfMADSScheme": {
+        "@id": "http://id.loc.gov/authorities/subjects"
+      },
+      "http://www.w3.org/2002/07/owl#sameAs": [
+        {
+          "@id": "http://id.loc.gov/authorities/sh95007336#concept"
+        },
+        {
+          "@id": "info:lc/authorities/sh95007336"
+        }
+      ],
+      "http://www.w3.org/2004/02/skos/core#altLabel": {
+        "@language": "en",
+        "@value": "Liberation of World War II concentration camps"
+      },
+      "http://www.w3.org/2004/02/skos/core#changeNote": {
+        "@type": "http://purl.org/vocab/changeset/schema#ChangeSet",
+        "http://purl.org/vocab/changeset/schema#changeReason": {
+          "@type": "http://www.w3.org/2001/XMLSchema#string",
+          "@value": "new"
+        },
+        "http://purl.org/vocab/changeset/schema#createdDate": {
+          "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+          "@value": "1995-08-28T00:00:00"
+        },
+        "http://purl.org/vocab/changeset/schema#creatorName": {
+          "@id": "http://id.loc.gov/vocabulary/organizations/dhmm"
+        },
+        "http://purl.org/vocab/changeset/schema#subjectOfChange": {
+          "@id": "http://id.loc.gov/authorities/subjects/sh95007336"
+        }
+      },
+      "http://www.w3.org/2004/02/skos/core#closeMatch": {
+        "@id": "http://data.bnf.fr/ark:/12148/cb12526909r"
+      },
+      "http://www.w3.org/2004/02/skos/core#inScheme": {
+        "@id": "http://id.loc.gov/authorities/subjects"
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel": {
+        "@language": "en",
+        "@value": "World War, 1939-1945--Concentration camps--Liberation"
+      },
+      "http://www.w3.org/2008/05/skos-xl#altLabel": {
+        "@type": "http://www.w3.org/2008/05/skos-xl#Label",
+        "http://www.w3.org/2008/05/skos-xl#literalForm": {
+          "@language": "en",
+          "@value": "Liberation of World War II concentration camps"
+        }
+      }
+    },
+    {
+      "@id": "http://id.loc.gov/authorities/subjects/sh85029589",
+      "@type": [
+        "http://www.loc.gov/mads/rdf/v1#Topic",
+        "http://www.loc.gov/mads/rdf/v1#Authority"
+      ],
+      "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": {
+        "@language": "en",
+        "@value": "Concentration camps"
+      },
+      "http://www.w3.org/2000/01/rdf-schema#label": {
+        "@language": "en",
+        "@value": "Concentration camps"
+      }
+    },
+    {
+      "@id": "http://data.bnf.fr/ark:/12148/cb12526909r",
+      "@type": [
+        "http://www.w3.org/2004/02/skos/core#Concept",
+        "http://www.loc.gov/mads/rdf/v1#Authority"
+      ],
+      "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": {
+        "@language": "FR",
+        "@value": "Guerre mondiale (1939-1945) -- Camps de concentration -- Lib\u00e9ration"
+      },
+      "http://www.w3.org/2004/02/skos/core#prefLabel": {
+        "@language": "FR",
+        "@value": "Guerre mondiale (1939-1945) -- Camps de concentration -- Lib\u00e9ration"
+      }
+    }
+  ]
+}
+

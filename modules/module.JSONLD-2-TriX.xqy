@@ -45,22 +45,45 @@ https://dvcs.w3.org/hg/json-ld/raw-file/default/test-suite/reports/earl.jsonld
 
 :)
 
+
 (:~
 :   This is the main function.  Input RDF/XML, output ntiples.
 :   All other functions are local.
 :
-:   @param  $json        as xs:string
+:   @param  $json        as element(json)
 :   @return trix:TriX as element
 :)
 declare function jsonld2trix:jsonld2trix(
     $jsonxml as element()
     ) as element(trix:TriX) {
+    jsonld2trix:jsonld2trix($jsonxml, "")
+};
+
+
+(:~
+:   This is the main function.  Input RDF/XML, output ntiples.
+:   All other functions are local.
+:
+:   @param  $json        as element(json)
+:   @param  $graphuri    as xs:string
+:   @return trix:TriX as element
+:)
+declare function jsonld2trix:jsonld2trix(
+    $jsonxml as element(),
+    $graphuri as xs:string
+    ) as element(trix:TriX) {
+        
+    let $level := 2
     
-    let $context := <context />
+    let $context := 
+        <context>
+            <fileuri>{$graphuri}</fileuri>
+        </context>
     let $triples :=
         for $o in $jsonxml[@type eq "object"]|$jsonxml/item[@type eq "object"]
         return jsonld2trix:parse-object($o, $context)
     
+    let $level := 3
     let $context := jsonld2trix:set-context($context, $jsonxml[@type eq "object"]/pair[@name eq "@context"])
     let $graphs :=
         for $g in $jsonxml/pair[@name eq "@graph"]
@@ -161,7 +184,20 @@ declare function jsonld2trix:parse-object(
     ) as element(trix:triple)*
 {
     let $context := jsonld2trix:set-context($context, $object/pair[@name eq "@context"])
-    let $uri := jsonld2trix:set-uri($object/pair[@name eq "@id"], $context)
+    let $seed := fn:string-join($object/text()|$object/pair/text(), "")
+    let $seed :=
+        if ( xs:string($seed) ne "" ) then
+            xs:string($seed)
+        else
+            fn:replace(xs:string(fn:current-dateTime()), ":|\.|\-", "")
+    let $uri := 
+        if (
+            fn:count($context/prop[@name eq "@type"]) < 2 and
+            ( fn:not($object/pair[@name eq "@id"]) or $object/pair[@name eq "@id"][1] eq "" )
+            ) then
+            xs:string($context/fileuri)
+        else
+            jsonld2trix:set-uri($object/pair[@name eq "@id"], $context, $seed)
     let $ts := 
         for $p in $object/pair[@name ne "@id" and @name ne "@context" and @name ne "@graph"]
         let $prop := $context/prop[@name eq xs:string($p/@name)][1]
@@ -172,6 +208,9 @@ declare function jsonld2trix:parse-object(
                 return 
                     element prop { 
                         attribute name {$pstr},
+                        attribute datatype {""},
+                        attribute container {""},
+                        attribute language {""},
                         $p-expanded 
                     }
             else
@@ -197,12 +236,16 @@ declare function jsonld2trix:parse-object(
                 else
                     let $o := 
                         element trix:plainLiteral {
+                            if ($prop[@language ne ""]) then
+                                attribute xml:lang { fn:lower-case(xs:string($prop/@language)) }
+                            else
+                                (),
                         xs:string($p)
                     }
                     return jsonld2trix:create-triple($uri, xs:string($prop), $o)
                     
-            else if ($p/@type eq "array") then
-                for $a in $p/item
+            else if ($p/@type eq "array" and $prop/@container ne "@list") then
+                for $a at $pos in $p/item
                 return
                     if ($prop/@datatype eq "@id") then
                         let $o := element trix:uri { xs:string($a) }
@@ -222,11 +265,25 @@ declare function jsonld2trix:parse-object(
                             let $o := element trix:uri { xs:string($a/pair[@name eq "@id"]) } 
                             return jsonld2trix:create-triple($uri, xs:string($prop), $o)
                         else
+                            let $object := jsonld2trix:parse-object($a, $context)
+                            let $object-uri := $object[1]/trix:*[1]
+                            return (
+                                jsonld2trix:create-triple($uri, xs:string($prop), $object-uri),
+                                $object
+                            )
+                            (:
                             let $o := 
                                 element trix:plainLiteral {
                                     xs:string($a/pair[1])
                                 }
                             return jsonld2trix:create-triple($uri, xs:string($prop), $o)
+                            :)
+                    else if ($a/@name eq "@type") then
+                        (: RDF Type :)
+                        let $property := xs:string($context/prop[@name eq "@type"][1])
+                        let $o := element trix:uri { xs:string($a) }
+                        return jsonld2trix:create-triple($uri, $property, $o)    
+                        
                     else
                         let $o := 
                             element trix:plainLiteral {
@@ -237,7 +294,7 @@ declare function jsonld2trix:parse-object(
             else if 
                 (
                     $p/@type eq "object" and
-                    fn:count($p/pair[@name ne "@id"]) eq 0 and
+                    fn:count($p/pair) eq 1 and
                     $p/pair[@name eq "@id"]
                 ) then
                 (:  We have an JSON object with only an ID, 
@@ -245,10 +302,147 @@ declare function jsonld2trix:parse-object(
                 :)
                 let $o := element trix:uri { xs:string($p/pair[@name eq "@id"]) } 
                 return jsonld2trix:create-triple($uri, xs:string($prop), $o)
+            else if (
+                $p/@type eq "object" and 
+                $p/pair[@name eq "@value"]
+                ) then
+                let $o := 
+                    element trix:plainLiteral {
+                        if ($p/pair[@name eq "@language"]) then
+                            attribute xml:lang { fn:lower-case(xs:string($p/pair[@name eq "@language"])) }
+                        else
+                            (),
+                        xs:string($p/pair[@name eq "@value"])
+                    }
+                return jsonld2trix:create-triple($uri, xs:string($prop), $o)
+            
+            else if (
+                        (
+                            $p/@type eq "object" and 
+                            $p/pair[@type eq "array"] and
+                            $p/pair[@name eq "@list"]
+                        ) or (
+                            $p/@type eq "array" and $prop/@container eq "@list"
+                        )
+                    ) then
+                let $items := 
+                    if (
+                            $p/@type eq "object" and 
+                            $p/pair[@type eq "array"] and
+                            $p/pair[@name eq "@list"]
+                        ) then
+                        $p/pair[@type eq "array"]/item
+                    else
+                        $p/item
+                for $a at $pos in $items
+                (: Fucking lists :)
+                let $preceding-uri := 
+                    if ($pos eq 1) then
+                        $uri
+                    else
+                        let $preceding-a := $items[$pos - 1]
+                        return
+                            if ($preceding-a/@name eq "@id") then
+                                xs:string($preceding-a)
+                            else
+                                fn:concat(jsonld2trix:set-uri((), $context, fn:concat($seed, "3xyz")), $pos - 1)
+                                
+                let $following-uri := 
+                    if (fn:count($a/../item) > $pos) then
+                        let $following-a := $items[$pos + 1]
+                        return
+                            if ($following-a/@name eq "@id") then
+                                xs:string($following-a)
+                            else
+                                fn:concat(jsonld2trix:set-uri((), $context, fn:concat($seed, "3xyz")), $pos + 1)
+                    else
+                        "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil"
+                        
+                let $following-uri :=
+                    if ( fn:starts-with($following-uri, "_:") ) then
+                        element trix:id { fn:replace($following-uri, "_:", "") }
+                    else
+                        element trix:uri { $following-uri }
+
+                let $subject := 
+                    if ($a/@name eq "@id") then
+                        element trix:uri { xs:string($a) }
+                    else
+                        let $u := jsonld2trix:set-uri((), $context, fn:concat($seed, "3xyz"))
+                        let $u := fn:replace($u, "_:", "")
+                        return element trix:id { fn:concat($u, $pos) }
+                        (:element trix:id { fn:concat(jsonld2trix:set-uri((), $context, fn:concat($seed, "3xyz")), $pos) } :)
+
+                let $object :=     
+                    if (
+                        $a/@type eq "object"
+                        ) then
+                        
+                        if (
+                            fn:count($a/pair) eq 1 and
+                            $a/pair[@name eq "@id"]
+                        ) then
+                        (:  
+                            We have an JSON object with only an ID, 
+                            which means it is the object of this triple
+                        :)
+                        let $obj-uri := jsonld2trix:set-uri($a/pair, $context, fn:concat($seed, "3xyz"))
+                        return
+                            if ( fn:starts-with($obj-uri, "_:") ) then
+                                element trix:id { fn:replace($obj-uri, "_:", "") }
+                            else
+                                element trix:uri { $obj-uri }
+                        else
+                            jsonld2trix:parse-object($a, $context)
+                    else if ($a/@type eq "string") then
+                        element trix:plainLiteral {
+                            xs:string($a)
+                        }
+                    else
+                        element trix:plainLiteral {"NO GOOD"}
+                let $object-uri := 
+                    if (fn:name($object[1]) eq "trix:triple") then
+                        $object[1]/trix:*[1]
+                    else
+                        $object
+                let $object := 
+                    if (fn:name($object[1]) eq "trix:triple") then
+                        $object
+                    else
+                        ()
+                    
+                return
+                    if ($pos eq 1) then
+                        (: needs a first and rest :)
+                        (
+                            jsonld2trix:create-triple($uri, xs:string($prop), $subject),
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#first", $object-uri),
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest", $following-uri),
+                            $object
+                        )
+                    else if ($pos eq $a/fn:last()) then
+                        (
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#first", $object-uri),
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest", $following-uri),
+                            $object
+                        )
+                    else
+                        (: needs a first and rest :)
+                        (
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#first", $object-uri),
+                            jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest", $following-uri),
+                            $object
+                        )
             else if ($p/@type eq "object") then
-                jsonld2trix:parse-object($p, $context)
+                let $object := jsonld2trix:parse-object($p, $context)
+                let $object-uri := $object[1]/trix:*[1]
+                return
+                    (
+                        jsonld2trix:create-triple($uri, xs:string($prop), $object-uri),
+                        $object
+                    )
             else
-                ()
+                () (: jsonld2trix:create-triple($uri, "whatever", element trix:literal{ $prop }) :)
         return $t
 
     return $ts
@@ -308,6 +502,8 @@ declare function jsonld2trix:set-context(
             element prop {
                 attribute name {"@type"},
                 attribute datatype {"@id"},
+                attribute container {""},
+                attribute language {""},
                 "http://www.w3.org/1999/02/22-rdf-syntax-ns#type"
             },
 
@@ -347,10 +543,15 @@ declare function jsonld2trix:set-context(
                     return $ptype-expanded
                 else
                     ""
+            let $pcontainer := xs:string($p/pair[@name eq "@container"])
+            let $planguage := xs:string($p/pair[@name eq "@language"])
+
             return 
                 element prop {
                     attribute name {$pname},
                     attribute datatype {$pdatatype},
+                    attribute container {$pcontainer},
+                    attribute language {$planguage},
                     $puri
                 }
         )
@@ -366,16 +567,17 @@ declare function jsonld2trix:set-context(
 
 declare function jsonld2trix:set-uri(
     $pair as element()*,
-    $context as element(context)
+    $context as element(context),
+    $seed as xs:string
     ) as xs:string
 {
     if ( fn:empty($pair) ) then
         (: We need a bnode? :)
         (: Not confident this will be robust enough, we'll see :)
-        let $currentDT := xs:string(fn:current-dateTime())
-        let $currentDT := fn:replace($currentDT, ":|\-|\.", "")
-        let $unique_num := xs:integer( fn:count($context/ancestor-or-self::node()) + fn:count($context//child::node()) )
-        return fn:concat("_:bnode" , $currentDT, xs:string($unique_num))
+        let $s := fn:sum(fn:string-to-codepoints($seed))
+        let $randnum := (69069 * $s + 1) mod 4294967296
+        let $num := xs:integer( fn:count($context/ancestor-or-self::node()) + fn:count($context//child::node()) )
+        return fn:concat("_:bnode" , xs:string($num), xs:string($randnum))
     else
         let $uri := xs:string($pair)
         let $panalyze := fn:analyze-string($uri, ":")

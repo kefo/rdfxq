@@ -59,7 +59,7 @@ declare option xdmp:output "indent-untyped=yes" ;
 declare variable $baseuri as xs:string := xdmp:get-request-field("baseuri","http://base-uri/");
 
 (:~
-:   This variable is for the MARCXML location - externally defined.
+:   This variable is for the location of the source RDF.
 :)
 declare variable $s as xs:string := xdmp:get-request-field("s","");
 
@@ -72,6 +72,12 @@ declare variable $i as xs:string := xdmp:get-request-field("i","rdfxml");
 :   Set the output serialization. Expected values are: rdfxml (default), trix, ntriples, jsonld
 :)
 declare variable $o as xs:string := xdmp:get-request-field("o","rdfxml");
+
+let $sname := 
+    if ( fn:not(fn:matches($s, "^(http|ftp)")) ) then
+        fn:concat("file://", $s)
+    else
+        $s
 
 let $source := 
     if ($i eq "ntriples" or $i eq "jsonld") then
@@ -102,7 +108,7 @@ let $source-trix :=
         ntriples2trix:ntriples2trix($source)
     else if ($i eq "jsonld") then
         let $jsonxml := xqilla:parse-json($source)
-        return jsonld2trix:jsonld2trix($jsonxml)
+        return jsonld2trix:jsonld2trix($jsonxml, $sname)
     else
         $source
      
@@ -116,7 +122,37 @@ let $output :=
     else
         $source-trix
 
-return $output
+let $graphs-count := fn:count($output//*:graph)
+let $triples-count := fn:count($output//*:triple)
+return 
+    element debug {
+        element input {
+            attribute type {$i},
+            attribute graphs {fn:count($source-trix//*:graph)},
+            attribute triples {fn:count($source-trix//*:triple)}
+        },
+        element output {
+            attribute type {$o},
+            attribute graphs {fn:count($output//*:graph)},
+            attribute triples {fn:count($output//*:triple)}
+        },
+        
+        (:
+        for $g in $output/*:graph
+        let $guri := $g/*:uri[1]
+        let $triples-c := fn:count($g/*:triple)
+        return
+            element debug-graph {
+                attribute uri {$guri},
+                attribute triples {$triples-c}
+            },
+        :)
+        
+        element output-data {
+            $output
+        }
+    }
+(: return fn:count($output//*:triple) :)
 
 
 
