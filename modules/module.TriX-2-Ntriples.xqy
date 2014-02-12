@@ -43,19 +43,13 @@ declare function trix2ntriples:trix2ntriples(
         $trix as element(trix:TriX)
         ) as xs:string
 {
-    let $graphs := 
-        for $g in $trix/trix:graph
-        let $guri := xs:string($g/trix:uri)
-        let $triples := 
-            for $t in $g/trix:triple
-            let $tstr := trix2ntriples:triple($t)
-            return
-                if ($guri eq "") then
-                    $tstr
-                else
-                    fn:concat($guri, " ", $tstr)
-        return fn:string-join($triples, "&#x0a;")
-    return fn:string-join($graphs, "&#x0a;")
+
+    let $triples := 
+        for $t in $trix//trix:triple
+        let $tstr := trix2ntriples:triple($t)
+        return $tstr
+    return fn:string-join($triples, "&#x0a;")
+    
 };
 
 

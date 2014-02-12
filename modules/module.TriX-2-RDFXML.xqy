@@ -71,12 +71,24 @@ declare function trix2rdfxml:trix2rdfxml(
                 let $parts := fn:tokenize(xs:string($p), "/")
                 return xs:string($parts[fn:last() - 1])
 
+        let $pprefix := 
+            if ( fn:not(fn:matches($pprefix, "^([A-Za-z])")) ) then
+                (: Must be a slash namespace :)
+                let $pp := fn:tokenize(xs:string($p), "/")[fn:last() - 2]
+                return
+                    if ( fn:not(fn:matches($pp, "^([A-Za-z])")) ) then
+                        "n0"
+                    else
+                        $pp
+            else
+                $pprefix
+
         let $pname := 
             if ( fn:contains($p, "#") ) then
                 fn:substring-after($p, "#")
             else
                 fn:tokenize(xs:string($p), "/")[fn:last()]
-                
+            
         let $pqname := fn:QName($pns, fn:concat($pprefix, ":", $pname))
         
         return
