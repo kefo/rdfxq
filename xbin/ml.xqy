@@ -122,6 +122,9 @@ let $output :=
     else
         $source-trix
 
+return $output
+
+(:
 let $graphs-count := fn:count($output//*:graph)
 let $triples-count := fn:count($output//*:triple)
 return 
@@ -152,7 +155,5 @@ return
             $output
         }
     }
+:)
 (: return fn:count($output//*:triple) :)
-
-
-
