@@ -117,7 +117,9 @@ let $output :=
     if ($o eq "rdfxml") then
         trix2rdfxml:trix2rdfxml($source-trix)
     else if ($o eq "jsonld") then
-        trix2jsonld:trix2jsonld($source-trix)
+        trix2jsonld:trix2jsonld($source-trix, fn:false())
+    else if ($o eq "jsonld-expanded") then
+        trix2jsonld:trix2jsonld($source-trix, fn:true())
     else if ($o eq "ntriples") then
         trix2ntriples:trix2ntriples($source-trix)
     else if ($o eq "snelson") then
