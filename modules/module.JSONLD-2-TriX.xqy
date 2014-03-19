@@ -319,7 +319,12 @@ declare function jsonld2trix:parse-object(
                 for $a at $pos in $p/item
                 return
                     if ($prop/@datatype eq "@id") then
-                        let $o := element trix:uri { xs:string($a) }
+                        let $id := xs:string($a)
+                        let $o := 
+                            if ( fn:starts-with($id, "_:") ) then
+                                element trix:id { fn:replace($id, "_:", "") }
+                            else
+                                element trix:uri { $id }
                         return jsonld2trix:create-triple($uri, xs:string($prop), $o)
                     else if ($prop/@datatype ne "") then
                         let $o := 
@@ -333,7 +338,28 @@ declare function jsonld2trix:parse-object(
                                 fn:count($a/pair[@name ne "@id"]) eq 0 and
                                 $a/pair[@name eq "@id"]
                             ) then
-                            let $o := element trix:uri { xs:string($a/pair[@name eq "@id"]) } 
+                            let $id := xs:string($a/pair[@name eq "@id"])
+                            let $o := 
+                                if ( fn:starts-with($id, "_:") ) then
+                                    element trix:id { fn:replace($id, "_:", "") }
+                                else
+                                    element trix:uri { $id }
+                            return jsonld2trix:create-triple($uri, xs:string($prop), $o)
+                        else if ( fn:count($a/pair[@name eq "@id"]) eq 0 ) then
+                            let $o := 
+                                if ($a/pair[@name eq "@type"]) then
+                                    element trix:typedLiteral {
+                                        attribute datatype { xs:string($a/pair[@name eq "@type"]) },
+                                        xs:string($a/pair[@name eq "@value"])
+                                    }
+                                else
+                                    element trix:plainLiteral {
+                                        if ($a/pair[@name eq "@language"]) then
+                                            attribute xml:lang { fn:lower-case(xs:string($a/pair[@name eq "@language"])) }
+                                        else
+                                            (),
+                                        xs:string($a/pair[@name eq "@value"])
+                                    }
                             return jsonld2trix:create-triple($uri, xs:string($prop), $o)
                         else
                             let $object := jsonld2trix:parse-object($a, $context)
