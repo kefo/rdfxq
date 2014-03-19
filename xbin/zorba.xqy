@@ -1,225 +1,151 @@
 xquery version "3.0";
 
 (:
-:   Module Name: MARC/XML BIB 2 BIBFRAME RDF using Saxon
+:   Module Name: MARC/XML BIB 2 BIBFRAME RDF using Zorba
 :
 :   Module Version: 1.0
 :
-:   Date: 2012 December 03
+:   Date: 2014 March 19
 :
 :   Copyright: Public Domain
 :
-:   Proprietary XQuery Extensions Used: Zorba (expath)
+:   Proprietary XQuery Extensions Used: Zorba
 :
 :   Xquery Specification: January 2007
 :
-:   Module Overview:     Transforms MARC/XML Bibliographic records
-:       to RDF conforming to the BIBFRAME model.  Outputs RDF/XML,
-:       N-triples, or JSON.
+:   Module Overview:     Convert RDF between different serializations.
 :
-:   Run: zorba -i -q file:///location/of/zorba.xqy -e marcxmluri:="http://location/of/marcxml.xml" -e serialization:="rdfxml" -e baseuri:="http://your-base-uri/"
-:   Run: zorba -i -q file:///location/of/zorba.xqy -e marcxmluri:="../location/of/marcxml.xml" -e serialization:="rdfxml" -e baseuri:="http://your-base-uri/"
 :)
 
 (:~
-:   Transforms MARC/XML Bibliographic records
-:   to RDF conforming to the BIBFRAME model.  Outputs RDF/XML,
-:   N-triples, or JSON.
+:   Convert RDF between different serializations.
 :
 :   @author Kevin Ford (kefo@loc.gov)
-:   @since December 03, 2012
+:   @since March 19, 2014
 :   @version 1.0
 :)
 
 (: IMPORTED MODULES :)
-import module namespace http            =   "http://www.zorba-xquery.com/modules/http-client";
-import module namespace file            =   "http://expath.org/ns/file";
-import module namespace parsexml        =   "http://www.zorba-xquery.com/modules/xml";
-import schema namespace parseoptions    =   "http://www.zorba-xquery.com/modules/xml-options";
 
-import module namespace marcbib2bibframe = "info:lc/id-modules/marcbib2bibframe#" at "../modules/module.MARCXMLBIB-2-BIBFRAME.xqy";
-import module namespace rdfxml2nt = "info:lc/id-modules/rdfxml2nt#" at "../modules/module.RDFXML-2-Ntriples.xqy";
-import module namespace rdfxml2json = "info:lc/id-modules/rdfxml2json#" at "../modules/module.RDFXML-2-JSON.xqy";
-import module namespace bfRDFXML2exhibitJSON = "info:lc/bf-modules/bfRDFXML2exhibitJSON#" at "../modules/module.RDFXML-2-ExhibitJSON.xqy";
-import module namespace RDFXMLnested2flat = "info:lc/bf-modules/RDFXMLnested2flat#" at "../modules/module.RDFXMLnested-2-flat.xqy";
+import module namespace rdfxml2trix = "http://3windmills.com/rdfxq/modules/rdfxml2trix#" at "../modules/module.RDFXML-2-TriX.xqy";
+import module namespace ntriples2trix = "http://3windmills.com/rdfxq/modules/ntriples2trix#" at "../modules/module.Ntriples-2-TriX.xqy";
+import module namespace jsonld2trix = "http://3windmills.com/rdfxq/modules/jsonld2trix#" at "../modules/module.JSONLD-2-TriX.xqy";
+
+import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
+import module namespace trix2jsonld = "http://3windmills.com/rdfxq/modules/trix2jsonld#" at "../modules/module.TriX-2-JSONLD.xqy";
+import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
+
 
 (: NAMESPACES :)
-declare namespace marcxml       = "http://www.loc.gov/MARC21/slim";
+import module namespace http            =   "http://zorba.io/modules/http-client";
+import module namespace jx              =   "http://zorba.io/modules/json-xml";
+import module namespace file            =   "http://expath.org/ns/file";
+import module namespace parsexml        =   "http://zorba.io/modules/xml";
+import schema namespace parseoptions    =   "http://zorba.io/modules/xml-options";
+
 declare namespace rdf           = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace rdfs          = "http://www.w3.org/2000/01/rdf-schema#";
 
-declare namespace bf            = "http://bibframe.org/vocab/";
-declare namespace madsrdf       = "http://www.loc.gov/mads/rdf/v1#";
-declare namespace relators      = "http://id.loc.gov/vocabulary/relators/";
-declare namespace identifiers   = "http://id.loc.gov/vocabulary/identifiers/";
-declare namespace notes         = "http://id.loc.gov/vocabulary/notes/";
-
-declare namespace an = "http://www.zorba-xquery.com/annotations";
-declare namespace httpexpath = "http://expath.org/ns/http-client";
 
 (:~
-:   This variable is for the base uri for your Authorites/Concepts.
-:   It is the base URI for the rdf:about attribute.
-:   
+:   This variable is for the location of the source RDF.
 :)
-declare variable $baseuri as xs:string external;
+declare variable $s as xs:string external;
 
 (:~
-:   This variable is for the MARCXML location - externally defined.
+:   Set the input serialization. Expected values are: rdfxml (default), trix, ntriples, jsonld
 :)
-declare variable $marcxmluri as xs:string external;
+declare variable $i as xs:string external;
 
 (:~
-:   This variable is for desired serialzation.  Expected values are: rdfxml (default), rdfxml-raw, ntriples, json, exhibitJSON
+:   Set the output serialization. Expected values are: rdfxml (default), trix, ntriples, jsonld
 :)
-declare variable $serialization as xs:string external;
+declare variable $o as xs:string external;
 
-(:~
-:   This variable is for desired serialzation.  Expected values are: rdfxml (default), rdfxml-raw, ntriples, json, exhibitJSON
+let $sname := 
+    if ( fn:not(fn:matches($s, "^(http|ftp)")) ) then
+        fn:concat("file://", $s)
+    else
+        $s
+
+let $source := 
+    if ( fn:starts-with($s, "http://" ) or fn:starts-with($s, "https://" ) ) then
+        let $json := http:get($s)
+        return $json("body")("content")
+    else
+        file:read-text($s)
+        
+let $source := 
+    if ($i eq "ntriples") then
+        $source
+    else if ($i eq "jsonld") then
+        let $json := jn:parse-json($source)
+        return jx:json-to-xml($json[1])
+    else
+        parsexml:parse($source, <parseoptions:options/>)/element()
+
+(: zorba -f -q zorba.xqy -e s:=../examples/ex15.json -e i:=jsonld -e o:=snelson :)
+let $output := $source
+(:
+let $source-trix := 
+    if ($i eq "rdfxml") then
+        rdfxml2trix:rdfxml2trix($source)
+    else if ($i eq "ntriples") then
+        ntriples2trix:ntriples2trix($source)
+    else if ($i eq "jsonld") then
+        jsonld2trix:jsonld2trix($source, $sname)
+    else
+        $source
+     
+let $output := 
+    if ($o eq "rdfxml") then
+        trix2rdfxml:trix2rdfxml($source-trix, fn:false())
+    else if ($o eq "rdfxml-abbrev") then
+        trix2rdfxml:trix2rdfxml($source-trix, fn:true())
+    else if ($o eq "jsonld") then
+        trix2jsonld:trix2jsonld($source-trix, fn:false())
+    else if ($o eq "jsonld-expanded") then
+        trix2jsonld:trix2jsonld($source-trix, fn:true())
+    else if ($o eq "ntriples") then
+        trix2ntriples:trix2ntriples($source-trix)
+    else if ($o eq "snelson") then
+        $source
+    else
+        $source-trix
 :)
-declare variable $resolveLabelsWithID as xs:string external := "false";
+return $output
 
-(:~
-Performs an http get but does not follow redirects
-
-$l          as xs:string is the label
-$scheme     as xs:string is the scheme    
-:)
-declare %an:sequential function local:http-get(
-            $label as xs:string,
-            $scheme as xs:string
-    )
-{
-    let $l := fn:encode-for-uri($label)
-    let $request := 
-        http:send-request(
-            <httpexpath:request 
-                method="GET" 
-                href="http://id.loc.gov/authorities/{$scheme}/label/{$l}" 
-                follow-redirect="false"/>, 
-            (), 
-            ()
-        )
-    return $request
-};
-
-(:~
-Outputs a resource, replacing verbose hasAuthority property
-with a simple rdf:resource pointer
-
-$resource   as element() is the resource
-$authuri    as xs:string is the authority URI    
-:)
-declare %an:nondeterministic function local:generate-resource(
-            $r as element(),
-            $authuri as xs:string
-    )
-{
-    element { fn:name($r) } {
-        $r/@*,
-        $r/*[fn:name() ne "bf:hasAuthority"],
-        element bf:hasAuthority {
-            attribute rdf:resource { $authuri }
+(:
+let $graphs-count := fn:count($output//*:graph)
+let $triples-count := fn:count($output//*:triple)
+return 
+    element debug {
+        element input {
+            attribute type {$i},
+            attribute graphs {fn:count($source-trix//*:graph)},
+            attribute triples {fn:count($source-trix//*:triple)}
+        },
+        element output {
+            attribute type {$o},
+            attribute graphs {fn:count($output//*:graph)},
+            attribute triples {fn:count($output//*:triple)}
+        },
+        
+        (:
+        for $g in $output/*:graph
+        let $guri := $g/*:uri[1]
+        let $triples-c := fn:count($g/*:triple)
+        return
+            element debug-graph {
+                attribute uri {$guri},
+                attribute triples {$triples-c}
+            },
+        :)
+        
+        element output-data {
+            $output
         }
     }
-};
-
-
-(:~
-Tries to resolve Labels to URIs
-
-$resource   as element() is the resource
-$authuri    as xs:string is the authority URI    
 :)
-declare %an:sequential function local:resolve-labels(
-        $flatrdfxml as element(rdf:RDF)
-    )
-{
-    let $resources := 
-        for $r in $flatrdfxml/*
-        let $n := fn:local-name($r)
-        let $scheme := 
-            if ( fn:matches($n, "Topic|TemporalConcept") ) then
-                "subjects"
-            else
-                "names"
-        return
-            if ( fn:matches($n, "Person|Organization|Place|Meeting|Family|Topic|TemporalConcept") ) then
-                let $label := ($r/bf:authorizedAccessPoint, $r/bf:label)[1]
-                let $label := fn:normalize-space(xs:string($label))
-                let $req1 := local:http-get($label, $scheme)
-                let $resource := 
-                    if ($req1[1]/@status eq 302) then
-                        let $authuri := xs:string($req1[1]/httpexpath:header[@name eq "X-URI"][1]/@value)
-                        return local:generate-resource($r, $authuri)
-                    else if ( 
-                        $req1[1]/@status ne 302 and
-                        fn:ends-with($label, ".")
-                        ) then
-                        let $l := fn:substring($label, 1, fn:string-length($label)-1) 
-                        let $req2 := local:http-get($l, $scheme)
-                        return
-                            if ($req2[1]/@status eq 302) then
-                                let $authuri := xs:string($req2[1]/httpexpath:header[@name eq "X-URI"][1]/@value)
-                                return local:generate-resource($r, $authuri)
-                            else 
-                                (: There was no match or some other message, keep moving :)
-                                $r
-                    else 
-                        $r
-                return $resource
-                    
-            else
-                $r
-    
-    return <rdf:RDF>{$resources}</rdf:RDF>
-};
-
-let $marcxml := 
-    if ( fn:starts-with($marcxmluri, "http://" ) or fn:starts-with($marcxmluri, "https://" ) ) then
-        let $http-response := http:get-node($marcxmluri) 
-        return $http-response[2]
-    else
-        let $raw-data as xs:string := file:read-text($marcxmluri)
-        let $mxml := parsexml:parse(
-                    $raw-data, 
-                    <parseoptions:options />
-                )
-        return $mxml
-let $marcxml := $marcxml//marcxml:record
-
-let $resources :=
-    for $r in $marcxml
-    let $controlnum := xs:string($r/marcxml:controlfield[@tag eq "001"][1])
-    let $httpuri := fn:concat($baseuri , $controlnum)
-    let $bibframe :=  marcbib2bibframe:marcbib2bibframe($r,$httpuri)
-    return $bibframe/child::node()[fn:name()]
-    
-let $rdfxml-raw := 
-        element rdf:RDF {
-            $resources
-        }
-        
-let $rdfxml := 
-    if ( $serialization ne "rdfxml-raw" ) then
-        let $flatrdfxml := RDFXMLnested2flat:RDFXMLnested2flat($rdfxml-raw, $baseuri)
-        return
-            if ($resolveLabelsWithID eq "true") then
-                local:resolve-labels($flatrdfxml)
-            else
-                $flatrdfxml
-    else
-        $rdfxml-raw 
-        
-let $response :=  
-    if ($serialization eq "ntriples") then 
-        rdfxml2nt:rdfxml2ntriples($rdfxml)
-    else if ($serialization eq "json") then 
-        rdfxml2json:rdfxml2json($rdfxml)
-    else if ($serialization eq "exhibitJSON") then
-        bfRDFXML2exhibitJSON:bfRDFXML2exhibitJSON($rdfxml, $baseuri)
-    else
-        $rdfxml
-
-return $response
+(: return fn:count($output//*:triple) :)
 
