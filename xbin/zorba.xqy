@@ -62,6 +62,83 @@ declare variable $i as xs:string external;
 :)
 declare variable $o as xs:string external;
 
+declare function local:json2snelson($json)
+{
+    if ( fn:count(jn:keys($json)) > 0 ) then
+        for $k in jn:keys($json)
+        return 
+            if ( fn:count(jn:members($json($k))) > 0 )then
+                element pair {
+                    attribute name {$k},
+                    attribute type {"array"},
+                    
+                    for $m in jn:members($json($k))
+                    return 
+                        if ( fn:count(jn:keys($m)) > 0 ) then
+                            element item {
+                                attribute type {"object"},
+                                (: parse JSON object :)
+                                local:json2snelson($m)
+                            }
+                        else
+                            element item {
+                                attribute type {
+                                    if ($m instance of xs:integer) then
+                                        "number"
+                                    else if ($m instance of xs:string) then
+                                        "string"
+                                    else
+                                        "boolean"
+                                },
+                                $m
+                            }
+                
+                }
+            else
+                if ( fn:count(jn:keys($json($k))) > 0 ) then
+                    element pair {
+                        attribute name {$k},
+                        attribute type {"object"},
+                        (: parse JSON object :)
+                        local:json2snelson($json($k))
+                    }
+                else
+                    element pair {
+                        attribute name {$k},
+                        attribute type {
+                            if ($json($k) instance of xs:integer) then
+                                "number"
+                            else if ($json($k) instance of xs:string) then
+                                "string"
+                            else
+                                "boolean"
+                        },
+                        $json($k)
+                    }
+    else
+        for $m in jn:members($json)
+        return 
+            if ( fn:count(jn:keys($m)) > 0 ) then
+                element item {
+                    attribute type {"object"},
+                    (: parse JSON object :)
+                    local:json2snelson($m)
+                }
+            else
+                element item {
+                    attribute type {
+                        if ($m instance of xs:integer) then
+                            "number"
+                        else if ($m instance of xs:string) then
+                            "string"
+                        else
+                            "boolean"
+                    },
+                    $m
+                }
+        
+};
+
 let $sname := 
     if ( fn:not(fn:matches($s, "^(http|ftp)")) ) then
         fn:concat("file://", $s)
@@ -80,7 +157,17 @@ let $source :=
         $source
     else if ($i eq "jsonld") then
         let $json := jn:parse-json($source)
-        return jx:json-to-xml($json[1])
+        (: return jx:json-to-xml($json[1]) :) 
+        let $jsontype := 
+            if ( fn:count(jn:keys($json)) > 0 ) then
+                "object"
+            else
+                "array"
+        return 
+            element json {
+                attribute type {$jsontype},
+                local:json2snelson($json)
+            }
     else
         parsexml:parse($source, <parseoptions:options/>)/element()
 
