@@ -5,7 +5,7 @@ xquery version "1.0";
 :
 :   Module Version: 1.0
 :
-:   Date: 2012 December 03
+:   Date: 2014 February 07
 :
 :   Copyright: Public Domain
 :
@@ -13,19 +13,15 @@ xquery version "1.0";
 :
 :   Xquery Specification: January 2007
 :
-:   Module Overview:     Transforms MARC/XML Bibliographic records
-:       to RDF conforming to the BIBFRAME model.  Outputs RDF/XML,
-:       N-triples, or JSON.
+:   Module Overview:     Convert RDF between different serializations.
 :
 :)
 
 (:~
-:   Transforms MARC/XML Bibliographic records
-:   to RDF conforming to the BIBFRAME model.  Outputs RDF/XML,
-:   N-triples, or JSON.
+:   Convert RDF between different serializations.
 :
 :   @author Kevin Ford (kefo@loc.gov)
-:   @since December 03, 2012
+:   @since Feb 7, 2014
 :   @version 1.0
 :)
 
@@ -49,15 +45,6 @@ declare namespace xdmp  = "http://marklogic.com/xdmp";
 declare namespace rdf           = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace rdfs          = "http://www.w3.org/2000/01/rdf-schema#";
 
-
-declare option xdmp:output "indent-untyped=yes" ; 
-
-(:~
-:   This variable is for the base uri for your Authorites/Concepts.
-:   It is the base URI for the rdf:about attribute.
-:   
-:)
-declare variable $baseuri as xs:string := xdmp:get-request-field("baseuri","http://base-uri/");
 
 (:~
 :   This variable is for the location of the source RDF.
