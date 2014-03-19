@@ -171,9 +171,6 @@ let $source :=
     else
         parsexml:parse($source, <parseoptions:options/>)/element()
 
-(: zorba -f -q zorba.xqy -e s:=../examples/ex15.json -e i:=jsonld -e o:=snelson :)
-let $output := $source
-(:
 let $source-trix := 
     if ($i eq "rdfxml") then
         rdfxml2trix:rdfxml2trix($source)
@@ -199,7 +196,7 @@ let $output :=
         $source
     else
         $source-trix
-:)
+
 return $output
 
 (:
