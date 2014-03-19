@@ -100,25 +100,23 @@ declare function ntriples2trix:triple(
             return element trix:uri { $ostr }
         else if ( fn:matches($o, "@[a-zA-Z]{2}$") ) then
             (: Plain literal with language tag :)
-            let $analysis := fn:analyze-string($o, "@[a-zA-Z]{2}$")
-            let $ostr := fn:replace($o, xs:string($analysis/sa:match[1]), "")
+            let $langtag := fn:lower-case(fn:normalize-space(fn:substring-after($o, '"@')))
+            let $ostr := fn:substring-before($o, '"@')
             let $ostr := fn:substring($ostr, 2)
-            let $ostr := fn:substring($ostr, 1, fn:string-length($ostr) - 1)
             return 
                 element trix:plainLiteral {
-                    attribute xml:lang { fn:lower-case(fn:substring-after(xs:string($analysis/sa:match[1]), "@")) },
+                    attribute xml:lang { $langtag },
                     $ostr
                 }
         else if ( fn:matches($o, "\^\^(<)([a-zA-Z0-9/%#\-:\.]+)(>)$") ) then
             (: Typed literal :)
-            let $analysis := fn:analyze-string($o, "\^\^(<)([a-zA-Z0-9/%#\-:\.]+)(>)$")
-            let $replace := fn:concat($analysis/sa:match[1]/text(), fn:string-join($analysis/sa:match[1]/sa:group/text(), ""))
-            let $ostr := $analysis/sa:non-match[1]
+            let $datatype := fn:normalize-space(fn:substring-after($o, '"^^'))
+            let $datatype := fn:replace($datatype, "<>", "")
+            let $ostr := fn:substring-before($o, '"^^')
             let $ostr := fn:substring($ostr, 2)
-            let $ostr := fn:substring($ostr, 1, fn:string-length($ostr) - 1)
             return 
                 element trix:typedLiteral {
-                    attribute datatype { xs:string($analysis/sa:match[1]/sa:group[2]) },
+                    attribute datatype { $datatype },
                     $ostr
                 }
         else

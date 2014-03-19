@@ -149,23 +149,20 @@ declare function jsonld2trix:expand-uri(
     $context as element(context)
     ) as xs:string
 {
-    let $str-analysis := fn:analyze-string($str, ":")
+
     let $expanded-uri := 
-        if ( 
-            $str-analysis/sa:match[1] and 
-            fn:not(fn:matches($str-analysis/sa:non-match[1], "http|info"))
-            ) then
-            let $ns := xs:string($context/ns[@prefix eq xs:string($str-analysis/sa:non-match[1])][1])
-            let $s := fn:replace($str, fn:concat(xs:string($str-analysis/sa:non-match[1]), ":"), "")
-            return fn:concat($ns, $s)
-        else if ( 
-            $str-analysis/sa:match[1] and 
-            fn:matches($str-analysis/sa:non-match[1], "http|info")
-            ) then
-            $str
+        if ( fn:matches($str, ":") ) then
+            let $parts := fn:tokenize($str, ":")
+            return
+                (: If it *does not* begin with http or info, we are looking at a prefix. :)
+                if (fn:not(fn:matches($parts[1], "http|info"))) then
+                    let $ns := xs:string($context/ns[@prefix eq $parts[1]][1])
+                    let $s := fn:replace($str, fn:concat($parts[1], ":"), "")
+                    return fn:concat($ns, $s)
+                else
+                    $str
         else
             $str
-            (: fn:concat($context/ns[@base eq "true"][1], $str) :)
     return $expanded-uri
 };
 
