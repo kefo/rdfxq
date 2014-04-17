@@ -166,7 +166,8 @@ declare function trix2jsonld:trix2jsonld-compact(
                                     else if ($t/@xml:lang) then
                                         fn:concat('{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
                                     else
-                                        fn:concat('{"@value": "', xs:string($t), '" }')
+                                        (: fn:concat('{"@value": "', xs:string($t), '" }') :)
+                                        fn:concat('{ "@language": "zz", "@value": "', xs:string($t), '" }')
                                     return $o
                                 return 
                                     fn:concat(
