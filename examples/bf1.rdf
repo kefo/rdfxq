@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:bf="http://bibframe.org/vocab/" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#" xmlns:relators="http://id.loc.gov/vocabulary/relators/" xmlns:dcterms="http://purl.org/dc/terms/">
+  <bf:Work rdf:about="http://id.loc.gov/resources/bibs/5226">
+    <rdf:type rdf:resource="http://bibframe.org/vocab/Text"/>
+    <bf:authorizedAccessPoint>Flanagan, Terry. Snoopy on wheels</bf:authorizedAccessPoint>
+    <bf:title>Snoopy on wheels</bf:title>
+    <bf:workTitle>
+      <bf:Title>
+	<bf:titleValue>Snoopy on wheels /</bf:titleValue>
+      </bf:Title>
+    </bf:workTitle>
+    <bf:creator>
+      <bf:Person>
+	<bf:label>Flanagan, Terry.</bf:label>
+	<bf:authorizedAccessPoint>Flanagan, Terry.</bf:authorizedAccessPoint>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <madsrdf:authoritativeLabel>Flanagan, Terry.</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Person>
+    </bf:creator>
+    <bf:contributor>
+      <bf:Person>
+	<bf:label>Schulz, Charles M. (Charles Monroe), 1922-2000.</bf:label>
+	<bf:authorizedAccessPoint>Schulz, Charles M. (Charles Monroe), 1922-2000.</bf:authorizedAccessPoint>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <madsrdf:authoritativeLabel>Schulz, Charles M. (Charles Monroe), 1922-2000.</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Person>
+    </bf:contributor>
+    <bf:note>"Based on the Charles M. Schulz characters"--P. 4 of cover.</bf:note>
+    <bf:note>On board pages.</bf:note>
+    <bf:language rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+    <bf:intendedAudience rdf:resource="http://id.loc.gov/vocabulary/targetAudiences/Juv"/>
+    <bf:subject>
+      <bf:Topic>
+	<bf:authorizedAccessPoint>Miniature books--Specimens</bf:authorizedAccessPoint>
+	<bf:label>Miniature books--Specimens</bf:label>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+	    <madsrdf:authoritativeLabel xml:lang="en">Miniature books--Specimens</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Topic>
+    </bf:subject>
+    <bf:subject>
+      <bf:Topic>
+	<bf:authorizedAccessPoint>Wheels--Fiction</bf:authorizedAccessPoint>
+	<bf:label>Wheels--Fiction</bf:label>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+	    <madsrdf:authoritativeLabel xml:lang="en">Wheels--Fiction</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Topic>
+    </bf:subject>
+    <bf:subject>
+      <bf:Topic>
+	<bf:authorizedAccessPoint>Dogs--Fiction</bf:authorizedAccessPoint>
+	<bf:label>Dogs--Fiction</bf:label>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+	    <madsrdf:authoritativeLabel xml:lang="en">Dogs--Fiction</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Topic>
+    </bf:subject>
+    <bf:subject>
+      <bf:Topic>
+	<bf:authorizedAccessPoint>Miniature books</bf:authorizedAccessPoint>
+	<bf:label>Miniature books</bf:label>
+	<bf:hasAuthority>
+	  <madsrdf:Authority>
+	    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Topic"/>
+	    <madsrdf:authoritativeLabel xml:lang="en">Miniature books</madsrdf:authoritativeLabel>
+	  </madsrdf:Authority>
+	</bf:hasAuthority>
+      </bf:Topic>
+    </bf:subject>
+    <bf:classificationLcc rdf:resource="http://id.loc.gov/authorities/classification/PZ7"/>
+    <bf:classification>
+      <bf:Classification>
+	<bf:classificationScheme>ddc</bf:classificationScheme>
+	<bf:classificationNumber>[E]</bf:classificationNumber>
+	<bf:label>[E]</bf:label>
+	<bf:classificationEdition>full</bf:classificationEdition>
+      </bf:Classification>
+    </bf:classification>
+    <bf:derivedFrom rdf:resource="http://id.loc.gov/resources/bibs/52265226"/>
+    <bf:hasAnnotation>
+      <bf:Annotation><bf:derivedFrom rdf:resource="http://id.loc.gov/resources/bibs/52265226.marcxml.xml"/><bf:descriptionSource rdf:resource="http://id.loc.gov/vocabulary/organizations/dlc"/><bf:generationProcess>DLC transform-tool:2014-03-21-T13:00:00</bf:generationProcess><bf:changeDate>2008-12-23T09:50</bf:changeDate>2008-12-23T09:50<bf:annotates rdf:resource="http://id.loc.gov/resources/bibs/52265226"/></bf:Annotation>
+    </bf:hasAnnotation>
+    <bf:hasInstance>
+      <bf:Instance>
+	<bf:isbn10 rdf:resource="http://isbn.example.org/0394856309"/>
+	<bf:isbn13 rdf:resource="http://isbn.example.org/9780394856308"/>
+	<bf:title>Snoopy on wheels</bf:title>
+	<bf:instanceTitle>
+	  <bf:Title>
+	    <bf:titleValue>Snoopy on wheels /</bf:titleValue>
+	  </bf:Title>
+	</bf:instanceTitle>
+	<rdf:type rdf:resource="http://bibframe.org/vocab/Monograph"/>
+	<bf:title>Snoopy on wheels</bf:title>
+	<bf:instanceTitle>
+	  <bf:Title>
+	    <bf:titleValue>Snoopy on wheels /</bf:titleValue>
+	  </bf:Title>
+	</bf:instanceTitle>
+	<bf:publication>
+	  <bf:Provider>
+	    <bf:providerName>
+	      <bf:Organization>
+		<bf:label>Random House</bf:label>
+	      </bf:Organization>
+	    </bf:providerName>
+	    <bf:providerPlace>
+	      <bf:Place>
+		<bf:label>New York</bf:label>
+	      </bf:Place>
+	    </bf:providerPlace>
+	    <bf:copyrightDate>c1983.</bf:copyrightDate>
+	  </bf:Provider>
+	</bf:publication>
+	<bf:modeOfIssuance>monographic</bf:modeOfIssuance>
+	<bf:titleStatement>Snoopy on wheels /</bf:titleStatement>
+	<bf:responsibilityStatement>[designed by Terry Flanagan].</bf:responsibilityStatement>
+	<bf:providerStatement>New York Random House, c1983.</bf:providerStatement>
+	<bf:extent>1 v. (unpaged)</bf:extent>
+	<bf:dimensions>88 mm.</bf:dimensions>
+	<bf:illustrationNote>col. ill. ;</bf:illustrationNote>
+	<bf:note>"Based on the Charles M. Schulz characters"--P. 4 of cover.</bf:note>
+	<bf:note>On board pages.</bf:note>
+	<bf:lccn>
+	  <bf:Identifier>
+	    <bf:identifierValue>82060878</bf:identifierValue>
+	    <bf:identifierScheme>lccn</bf:identifierScheme>
+	  </bf:Identifier>
+	</bf:lccn>
+	<bf:instanceOf rdf:resource="http://id.loc.gov/resources/bibs/5226"/>
+	<bf:derivedFrom rdf:resource="http://id.loc.gov/resources/bibs/52265226"/>
+	<bf:heldItem>
+	  <bf:HeldItem>
+	    <bf:label>PZ7.F598295 Sn 1993</bf:label>
+	    <bf:shelfMarkLcc>PZ7.F598295 Sn 1993</bf:shelfMarkLcc>
+	  </bf:HeldItem>
+	</bf:heldItem>
+      </bf:Instance>
+    </bf:hasInstance>
+  </bf:Work>
+</rdf:RDF>
+
