@@ -146,24 +146,52 @@ declare function trix2jsonld:trix2jsonld-compact(
                         else
                             fn:concat('"@type": "', xs:string($ts/trix:*[3]), '"')
                 else
-                    for $t in $ts/trix:*[3]
-                    let $o :=
-                        if (fn:name($t) eq "trix:uri") then
-                            fn:concat($predicate, '{ "@id": "', xs:string($t), '" }')
-                        else if (fn:name($t) eq "trix:id") then
-                            if ($t/parent::node()/following-sibling::node()[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                                (: we have a list :)
-                                let $listitems := trix2jsonld:get-listitem($t)
-                                return fn:concat($predicate, '{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
-                            else
-                                fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
-                        else if (fn:name($t) eq "trix:typedLiteral") then
-                            fn:concat($predicate, '{ "@type": "', xs:string($t/@datatype), '", "@value": "', xs:string($t), '" }')
-                        else if ($t/@xml:lang) then
-                            fn:concat($predicate, '{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
+                    let $num-types := fn:count($ts)
+                    return
+                        if ($num-types > 1) then
+                            let $objects := 
+                                for $t in $ts/trix:*[3]
+                                let $o :=
+                                    if (fn:name($t) eq "trix:uri") then
+                                        fn:concat('{ "@id": "', xs:string($t), '" }')
+                                    else if (fn:name($t) eq "trix:id") then
+                                        if ($t/parent::node()/following-sibling::node()[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                                            (: we have a list :)
+                                            let $listitems := trix2jsonld:get-listitem($t)
+                                            return fn:concat('{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
+                                        else
+                                            fn:concat('{ "@id": "_:', xs:string($t), '" }')
+                                    else if (fn:name($t) eq "trix:typedLiteral") then
+                                        fn:concat('{ "@type": "', xs:string($t/@datatype), '", "@value": "', xs:string($t), '" }')
+                                    else if ($t/@xml:lang) then
+                                        fn:concat('{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
+                                    else
+                                        fn:concat('{"@value": "', xs:string($t), '" }')
+                                    return $o
+                                return 
+                                    fn:concat(
+                                        $predicate,
+                                        "[ ", fn:string-join($objects, ", "), " ]"
+                                    )
                         else
-                            fn:concat($predicate, '"', xs:string($t), '"')
-                    return $o
+                            for $t in $ts/trix:*[3]
+                            let $o :=
+                                if (fn:name($t) eq "trix:uri") then
+                                    fn:concat($predicate, '{ "@id": "', xs:string($t), '" }')
+                                else if (fn:name($t) eq "trix:id") then
+                                    if ($t/parent::node()/following-sibling::node()[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                                        (: we have a list :)
+                                        let $listitems := trix2jsonld:get-listitem($t)
+                                        return fn:concat($predicate, '{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
+                                    else
+                                        fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
+                                else if (fn:name($t) eq "trix:typedLiteral") then
+                                    fn:concat($predicate, '{ "@type": "', xs:string($t/@datatype), '", "@value": "', xs:string($t), '" }')
+                                else if ($t/@xml:lang) then
+                                    fn:concat($predicate, '{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
+                                else
+                                    fn:concat($predicate, '"', xs:string($t), '"')
+                            return $o
             return $predicate-objects
         return
             fn:concat(
