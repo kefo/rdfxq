@@ -266,7 +266,7 @@ declare function trix2jsonld:get-listitem(
     let $list-item := $first/parent::node()/following-sibling::node()[trix:*[1][. eq $first] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]/trix:*[3]
     let $next := $first/parent::node()/following-sibling::node()[trix:*[1][. eq $first] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[3]
     return
-        if ($next eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil") then
+        if (xs:string($next) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil") then
             $list-item
         else
             (
