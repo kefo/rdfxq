@@ -118,7 +118,11 @@ declare function trix2jsonld:trix2jsonld-compact(
                     fn:concat(fn:substring-before($dp, "#"), "#")
                 else
                     let $parts := fn:tokenize(xs:string($dp), "/")
-                    return fn:concat( fn:string-join($parts[fn:not(fn:last())], "/"), "/" )
+                    let $parts := 
+                        for $p at $pos in $parts
+                        where $pos < fn:count($parts)
+                        return $p
+                    return fn:concat( fn:string-join($parts, "/"), "/" )
             let $prefix := xs:string($namespaces/ns[@value eq $pns])
             let $pname := 
                 if ( fn:contains($dp, "#") ) then
