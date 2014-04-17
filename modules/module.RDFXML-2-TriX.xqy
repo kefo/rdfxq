@@ -252,7 +252,7 @@ declare function rdfxml2trix:parse_collection(
             }
         else
             element trix:triple {
-                $object,
+                $subject,
                 element trix:uri { "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest" },
                 element trix:uri { "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil" }
             }
