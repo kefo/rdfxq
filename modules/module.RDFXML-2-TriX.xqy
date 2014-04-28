@@ -135,17 +135,18 @@ declare function rdfxml2trix:parse_property(
             element trix:uri { xs:string($node/@rdf:resource) }
         else if ($node[@rdf:parseType eq "Collection"] and fn:not($node/@rdf:nodeID)) then
             element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1]) }
-        else if ($node/child::node()[1]/@rdf:nodeID) then
-            element trix:id { fn:concat("_:" , fn:data($node/child::node()[1]/@rdf:nodeID)) }
-        else if ($node/child::node()[1]/@rdf:about) then
-            element trix:uri { xs:string($node/child::node()[1]/@rdf:about) }
+        else if ($node/child::node()[fn:name()][1]/@rdf:nodeID) then
+            element trix:id { fn:concat("_:" , fn:data($node/child::node()[fn:name()][1]/@rdf:nodeID)) }
+        else if ($node/child::node()[fn:name()][1]/@rdf:about) then
+            element trix:uri { xs:string($node/child::node()[fn:name()][1]/@rdf:about) }
         else if ($node[@rdf:parseType eq "Literal"]) then
+            (:
             let $plainLiteral := 
                 fn:concat('"' , 
                     fn:replace(
                         fn:replace(
                             fn:replace(
-                                 $node/child::node()/text(), 
+                                fn:string-join($node//text(), " "), 
                                 '&quot;',
                                 '\\"'
                             ),
@@ -156,6 +157,10 @@ declare function rdfxml2trix:parse_property(
                         '\\t'
                     ),
                 '"')
+            :)
+            let $plainLiteral := fn:string-join($node//text(), " ")
+            let $plainLiteral := fn:replace($plainLiteral, "\n", " ")
+            let $plainLiteral := fn:replace($plainLiteral, "\t", " ")
             return element trix:plainLiteral { $plainLiteral }
             (: '"Comment"' :)
         else if (fn:local-name($node/child::node()[fn:name()][1]) ne "") then
