@@ -33,11 +33,11 @@ import module namespace jsonld2trix = "http://3windmills.com/rdfxq/modules/jsonl
 
 import module namespace xqilla = "http://xqilla.sourceforge.net/Functions" at "../modules/module.JSON-2-SnelsonXML.xqy";
 
-
 import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
-import module namespace trix2jsonld = "http://3windmills.com/rdfxq/modules/trix2jsonld#" at "../modules/module.TriX-2-JSONLD.xqy";
+import module namespace trix2jsonld-ml = "http://3windmills.com/rdfxq/modules/trix2jsonld-ml#" at "../modules/module.TriX-2-JSONLD-MarkLogic.xqy";
 import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
 
+import module namespace rdfxqshared     = "http://3windmills.com/rdfxq/modules/rdfxqshared#" at "../modules/module.Shared.xqy";
 
 (: NAMESPACES :)
 declare namespace xdmp  = "http://marklogic.com/xdmp";
@@ -106,9 +106,9 @@ let $output :=
     else if ($o eq "rdfxml-abbrev") then
         trix2rdfxml:trix2rdfxml($source-trix, fn:true())
     else if ($o eq "jsonld") then
-        trix2jsonld:trix2jsonld($source-trix, fn:false())
+        trix2jsonld-ml:trix2jsonld($source-trix, fn:false())
     else if ($o eq "jsonld-expanded") then
-        trix2jsonld:trix2jsonld($source-trix, fn:true())
+        trix2jsonld-ml:trix2jsonld($source-trix, fn:true())
     else if ($o eq "ntriples") then
         trix2ntriples:trix2ntriples($source-trix)
     else if ($o eq "snelson") then
