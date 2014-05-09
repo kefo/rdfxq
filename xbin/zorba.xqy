@@ -32,7 +32,7 @@ import module namespace ntriples2trix = "http://3windmills.com/rdfxq/modules/ntr
 import module namespace jsonld2trix = "http://3windmills.com/rdfxq/modules/jsonld2trix#" at "../modules/module.JSONLD-2-TriX.xqy";
 
 import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
-import module namespace trix2jsonld = "http://3windmills.com/rdfxq/modules/trix2jsonld#" at "../modules/module.TriX-2-JSONLD.xqy";
+import module namespace trix2jsonld = "http://3windmills.com/rdfxq/modules/trix2jsonld#" at "../modules/module.TriX-2-JSONLD-Generic.xqy";
 import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
 
 
