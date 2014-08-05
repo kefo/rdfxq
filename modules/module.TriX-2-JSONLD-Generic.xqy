@@ -241,11 +241,11 @@ declare function trix2jsonld:get-compact-resource(
                                     else
                                         fn:concat('{ "@id": "_:', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:typedLiteral") then
-                                    fn:concat('{ "@type": "', xs:string($t/@datatype), '", "@value": "', xs:string($t), '" }')
+                                    fn:concat('{ "@type": "', xs:string($t/@datatype), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                                 else if ($t/@xml:lang) then
-                                    fn:concat('{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
+                                    fn:concat('{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                                 else
-                                    fn:concat('"', xs:string($t), '"')
+                                    fn:concat('"', trix2jsonld:clean-string(xs:string($t)), '"')
                                 return $o
                             return 
                                 fn:concat(
@@ -265,11 +265,11 @@ declare function trix2jsonld:get-compact-resource(
                                 else
                                     fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
                             else if (fn:name($t) eq "trix:typedLiteral") then
-                                fn:concat($predicate, '{ "@type": "', xs:string($t/@datatype), '", "@value": "', xs:string($t), '" }')
+                                fn:concat($predicate, '{ "@type": "', xs:string($t/@datatype), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                             else if ($t/@xml:lang) then
-                                fn:concat($predicate, '{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', xs:string($t), '" }')
+                                fn:concat($predicate, '{ "@language": "', xs:string($t/@xml:lang), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                             else
-                                fn:concat($predicate, '"', xs:string($t), '"')
+                                fn:concat($predicate, '"', trix2jsonld:clean-string(xs:string($t)), '"')
                         return $o
         return $predicate-objects
     return
@@ -334,7 +334,7 @@ declare function trix2jsonld:get-expanded-resource(
                     fn:string-join(
                         (
                             fn:concat('"@type": "', xs:string($t/@datatype), '"'),
-                            fn:concat('"@value": "', xs:string($t), '"')
+                            fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
                         ),
                         ",&#x0a;"
                     )
@@ -342,12 +342,12 @@ declare function trix2jsonld:get-expanded-resource(
                     fn:string-join(
                         (
                             fn:concat('"@language": "', xs:string($t/@xml:lang), '"'),
-                            fn:concat('"@value": "', xs:string($t), '"')
+                            fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
                         ),
                         ",&#x0a;"
                     )
                 else
-                    fn:concat('"@value": "', xs:string($t), '"')
+                    fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
             return
                 fn:concat("{ ", $o, " }")
         return 
@@ -385,4 +385,17 @@ declare function trix2jsonld:get-listitem(
                 $list-item,
                 trix2jsonld:get-listitem($next)
             )
+};
+
+(:~
+:   Clean string.  At present, only escapes double quotes
+:
+:   @param  $str as xs:string
+:   @return xs:String
+:)
+declare function trix2jsonld:clean-string(
+        $str as xs:string
+        ) as xs:string
+{
+    fn:replace($str, '"', '\\"')
 };
