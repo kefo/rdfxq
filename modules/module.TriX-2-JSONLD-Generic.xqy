@@ -397,5 +397,7 @@ declare function trix2jsonld:clean-string(
         $str as xs:string
         ) as xs:string
 {
-    fn:replace($str, '"', '\\"')
+    let $str := fn:replace($str, '\\"', '"')
+    let $str := fn:replace($str, '"', '\\"')
+    return $str
 };
