@@ -39,11 +39,11 @@ declare namespace   trix        = "http://www.w3.org/2004/03/trix/trix-1/";
 declare namespace   map         = "http://marklogic.com/xdmp/map";
 
 (:~
-:   This is the main function.  Input RDF/XML, output ntiples.
+:   This is the main function.  Input TriX, output jsonld *compact.*
 :   All other functions are local.
 :
-:   @param  $rdfxml        node() is the RDF/XML  
-:   @return ntripes as xs:string
+:   @param  $trix        node() is the TriX XML
+:   @return jsonld as xs:string
 :)
 declare function trix2jsonld-ml:trix2jsonld(
         $trix as element(trix:TriX)
@@ -54,11 +54,12 @@ declare function trix2jsonld-ml:trix2jsonld(
 
 
 (:~
-:   This is the main function.  Input RDF/XML, output ntiples.
-:   All other functions are local.
+:   This is the main function.  Input TriX XML, output jsonld, expanded or 
+:   compacted.  $expanded=false or $expanded=true, default is false
 :
-:   @param  $rdfxml        node() is the RDF/XML  
-:   @return ntripes as xs:string
+:   @param  $trix        node() is the TriX XML
+:   @param  $expanded    boolean()
+:   @return jsonld as xs:string
 :)
 declare function trix2jsonld-ml:trix2jsonld(
         $trix as element(trix:TriX),
