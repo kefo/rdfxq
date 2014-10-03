@@ -322,34 +322,42 @@ declare function trix2jsonld:get-expanded-resource(
     let $predicates := 
         for $dp in $distinct-predicates
         let $ts := $subjects[trix:*[2] eq $dp]
-        let $predicate := fn:concat('"' , xs:string($dp), '": ')
+        let $predicate := 
+            if (xs:string($dp) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") then
+                '"@type": '
+            else
+                fn:concat('"' , xs:string($dp), '": ')
         let $object := 
-            for $t in $ts/trix:*[3]
-            let $o :=
-                if (fn:name($t) eq "trix:uri") then
-                    fn:concat('"@id": "', xs:string($t), '"')
-                else if (fn:name($t) eq "trix:id") then
-                    fn:concat('"@id": "_:', xs:string($t), '"')
-                else if (fn:name($t) eq "trix:typedLiteral") then
-                    fn:string-join(
-                        (
-                            fn:concat('"@type": "', xs:string($t/@datatype), '"'),
+            if (fn:contains($predicate,"@type")) then
+                for $t in $ts/trix:*[3]
+                return fn:concat('"', xs:string($t), '"')
+            else
+                for $t in $ts/trix:*[3]
+                let $o :=
+                    if (fn:name($t) eq "trix:uri") then
+                        fn:concat('"@id": "', xs:string($t), '"')
+                    else if (fn:name($t) eq "trix:id") then
+                        fn:concat('"@id": "_:', xs:string($t), '"')
+                    else if (fn:name($t) eq "trix:typedLiteral") then
+                        fn:string-join(
+                            (
+                                fn:concat('"@type": "', xs:string($t/@datatype), '"'),
+                                fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
+                            ),
+                            ",&#x0a;"
+                        )
+                    else if ($t/@xml:lang) then
+                        fn:string-join(
+                            (
+                                fn:concat('"@language": "', xs:string($t/@xml:lang), '"'),
+                                fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
+                            ),
+                            ",&#x0a;"
+                        )
+                    else
                             fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
-                        ),
-                        ",&#x0a;"
-                    )
-                else if ($t/@xml:lang) then
-                    fn:string-join(
-                        (
-                            fn:concat('"@language": "', xs:string($t/@xml:lang), '"'),
-                            fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
-                        ),
-                        ",&#x0a;"
-                    )
-                else
-                    fn:concat('"@value": "', trix2jsonld:clean-string(xs:string($t)), '"')
-            return
-                fn:concat("{ ", $o, " }")
+                return
+                    fn:concat("{ ", $o, " }")
         return 
             fn:concat(
                 $predicate,
