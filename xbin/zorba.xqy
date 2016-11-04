@@ -34,7 +34,7 @@ import module namespace jsonld2trix = "http://3windmills.com/rdfxq/modules/jsonl
 import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
 import module namespace trix2jsonld = "http://3windmills.com/rdfxq/modules/trix2jsonld#" at "../modules/module.TriX-2-JSONLD-Generic.xqy";
 import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
-
+import module namespace trix2mlsemtriples = "http://3windmills.com/rdfxq/modules/trix2mlsemtriples#" at "../modules/module.TriX-2-MLSemTriples.xqy";
 
 (: NAMESPACES :)
 import module namespace http            =   "http://zorba.io/modules/http-client";
@@ -192,6 +192,8 @@ let $output :=
         trix2jsonld:trix2jsonld($source-trix, fn:true())
     else if ($o eq "ntriples") then
         trix2ntriples:trix2ntriples($source-trix)
+    else if ($o eq "mlsemtriples") then
+        trix2mlsemtriples:trix2mlsemtriples($source-trix)
     else if ($o eq "snelson") then
         $source
     else
