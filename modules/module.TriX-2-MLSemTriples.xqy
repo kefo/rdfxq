@@ -82,7 +82,10 @@ declare function trix2mlsemtriples:triple(
                         if ($a/@xml:lang) then
                             ($a/@xml:lang, xs:string($a))
                         else 
-                            xs:string($a)
+                            (
+                                attribute datatype { "http://www.w3.org/2001/XMLSchema#string" },
+                                xs:string($a)
+                            )
                     case element(trix:typedLiteral) return ($a/@datatype, xs:string($a))
                     default return ""
             }
