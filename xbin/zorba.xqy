@@ -46,6 +46,9 @@ import schema namespace parseoptions    =   "http://zorba.io/modules/xml-options
 declare namespace rdf           = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 declare namespace rdfs          = "http://www.w3.org/2000/01/rdf-schema#";
 
+(:
+zorba -i -q "file:///Users/kefo/Work/rdfxq/xbin/zorba.xqy" -e s:="file:///Users/kefo/Work/rdfxq/examples/c1.rdf" -e o:="trix"
+:)
 
 (:~
 :   This variable is for the location of the source RDF.
@@ -55,12 +58,12 @@ declare variable $s as xs:string external;
 (:~
 :   Set the input serialization. Expected values are: rdfxml (default), trix, ntriples, jsonld
 :)
-declare variable $i as xs:string external;
+declare variable $i as xs:string external := "rdfxml";
 
 (:~
 :   Set the output serialization. Expected values are: rdfxml (default), trix, ntriples, jsonld
 :)
-declare variable $o as xs:string external;
+declare variable $o as xs:string external := "rdfxml";
 
 declare function local:json2snelson($json)
 {
