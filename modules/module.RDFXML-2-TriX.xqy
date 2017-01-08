@@ -316,8 +316,8 @@ declare function rdfxml2trix:return_uri4bnode($uri as xs:string) as xs:string {
     let $uriparts4bnode := 
             for $u in $uriparts
             let $str := 
-                if ( fn:matches($u , '\.|:|#') eq fn:false() ) then
-                    $u
+                if ( fn:matches($u , ':|#') eq fn:false() ) then
+                    fn:replace($u, '\.', '')
                 else ()
             return $str
     return fn:string-join( $uriparts4bnode , '')
