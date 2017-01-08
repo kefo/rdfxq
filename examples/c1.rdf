@@ -1,0 +1,83 @@
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+            <lcc:ClassNumber rdf:about="http://id.loc.gov/authorities/classification/B1008.L53" xmlns:lcc="http://id.loc.gov/ontologies/lcc#">
+              <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#Topic"/>
+              <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/classification" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"/>
+              <madsrdf:authoritativeLabel xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">Liberty</madsrdf:authoritativeLabel>
+              <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy. Psychology. Religion--Philosophy (General)--Modern (1450/1600- )--By region or country--Latin America--Special topics, A-Z--Liberty</rdfs:label>
+              <madsrdf:componentList rdf:parseType="Collection" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <madsrdf:Collection>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy. Psychology. Religion</rdfs:label>
+                </madsrdf:Collection>
+                <madsrdf:Topic>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy (General)</rdfs:label>
+                </madsrdf:Topic>
+                <madsrdf:Topic>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Modern (1450/1600- )</rdfs:label>
+                </madsrdf:Topic>
+                <madsrdf:Topic>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">By region or country</rdfs:label>
+                </madsrdf:Topic>
+                <madsrdf:Topic>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Latin America</rdfs:label>
+                </madsrdf:Topic>
+                <madsrdf:Topic>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Special topics, A-Z</rdfs:label>
+                </madsrdf:Topic>
+                <madsrdf:Topic>
+                  <madsrdf:authoritativeLabel>Liberty</madsrdf:authoritativeLabel>
+                </madsrdf:Topic>
+              </madsrdf:componentList>
+              <madsrdf:hasVariant xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <lcc:IndexTerm>
+                  <madsrdf:variantLabel>Philosophy. Psychology. Religion--Philosophy (General)--Modern (1450/1600- )--By region or country--Latin America--Special topics, A-Z--Liberty</madsrdf:variantLabel>
+                </lcc:IndexTerm>
+              </madsrdf:hasVariant>
+              <madsrdf:hasVariant xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <lcc:IndexTerm>
+                  <madsrdf:variantLabel>Liberty--Philosophy--Latin American philosophy</madsrdf:variantLabel>
+                </lcc:IndexTerm>
+              </madsrdf:hasVariant>
+              <madsrdf:hasBroaderAuthority xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <madsrdf:ComplexSubject>
+                  <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy. Psychology. Religion--Philosophy (General)--Modern (1450/1600- )--By region or country--Latin America--Special topics, A-Z</rdfs:label>
+                  <madsrdf:componentList rdf:parseType="Collection">
+                    <madsrdf:Collection>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy. Psychology. Religion</rdfs:label>
+                    </madsrdf:Collection>
+                    <madsrdf:Topic>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Philosophy (General)</rdfs:label>
+                    </madsrdf:Topic>
+                    <madsrdf:Topic>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Modern (1450/1600- )</rdfs:label>
+                    </madsrdf:Topic>
+                    <madsrdf:Topic>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">By region or country</rdfs:label>
+                    </madsrdf:Topic>
+                    <madsrdf:Topic>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Latin America</rdfs:label>
+                    </madsrdf:Topic>
+                    <madsrdf:Topic>
+                      <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Special topics, A-Z</rdfs:label>
+                    </madsrdf:Topic>
+                  </madsrdf:componentList>
+                </madsrdf:ComplexSubject>
+              </madsrdf:hasBroaderAuthority>
+              <madsrdf:code xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">B1008.L53</madsrdf:code>
+              <madsrdf:adminMetadata xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <ri:RecordInfo xmlns:ri="http://id.loc.gov/ontologies/RecordInfo#">
+                  <ri:recordChangeDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">1992-08-26T00:00:00</ri:recordChangeDate>
+                  <ri:recordStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">new</ri:recordStatus>
+                  <ri:recordContentSource rdf:resource="http://id.loc.gov/vocabulary/organizations/dlc"/>
+                </ri:RecordInfo>
+              </madsrdf:adminMetadata>
+              <madsrdf:adminMetadata xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                <ri:RecordInfo xmlns:ri="http://id.loc.gov/ontologies/RecordInfo#">
+                  <ri:recordChangeDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2007-06-28T10:44:29</ri:recordChangeDate>
+                  <ri:recordStatus rdf:datatype="http://www.w3.org/2001/XMLSchema#string">revised</ri:recordStatus>
+                  <ri:recordContentSource rdf:resource="http://id.loc.gov/vocabulary/organizations/dlc"/>
+                </ri:RecordInfo>
+              </madsrdf:adminMetadata>
+              <madsrdf:isMemberOfMADSCollection rdf:resource="http://id.loc.gov/authorities/classification/B" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"/>
+              <lcc:synthesizedFromSchedule rdf:resource="http://id.loc.gov/authorities/classification/cf94110899"/>
+            </lcc:ClassNumber>
+</rdf:RDF>
