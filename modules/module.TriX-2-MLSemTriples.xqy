@@ -80,13 +80,13 @@ declare function trix2mlsemtriples:triple(
                     case element(trix:id) return fn:concat("http://marklogic.com/semantics/blank/" , xs:string($a))
                     case element(trix:plainLiteral) return 
                         if ($a/@xml:lang) then
-                            ($a/@xml:lang, xs:string($a))
+                            ($a/@xml:lang, fn:replace(xs:string($a), '\\"', '"'))
                         else 
                             (
                                 attribute datatype { "http://www.w3.org/2001/XMLSchema#string" },
-                                xs:string($a)
+                                fn:replace(xs:string($a), '\\"', '"')
                             )
-                    case element(trix:typedLiteral) return ($a/@datatype, xs:string($a))
+                    case element(trix:typedLiteral) return ($a/@datatype, fn:replace(xs:string($a), '\\"', '"'))
                     default return ""
             }
     return element sem:triple { $spo }
