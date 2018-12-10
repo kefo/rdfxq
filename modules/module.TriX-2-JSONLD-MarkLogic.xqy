@@ -127,6 +127,23 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
         for $t in $distinct-subjects
         return map:put($m, xs:string($t), element trix:Trix { $trix//trix:triple[trix:*[1] eq $t] })
     
+    (:
+    This appeared to make no speed difference.
+    Keeping, for now, as a marker of something that has been tried and found 
+    not to have an impact.
+    :)
+    (:
+    let $m := map:map()
+    let $build := 
+        for $s in $trix//trix:triple/trix:*[1]
+        let $s_str := xs:string($s)
+        return 
+            if ( fn:empty(map:get($m, $s_str)) ) then
+                map:put($m, $s_str, element trix:Trix { $trix//trix:triple[trix:*[1] eq $s] })
+            else
+                ()
+    :)
+    
     let $triples := 
         for $key in map:keys($m)
         let $allsubjects := map:get($m, $key)
