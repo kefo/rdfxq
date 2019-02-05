@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <bf:Work rdf:about="http://id.loc.gov/resources/works/c020290126"
+        xmlns:bf="http://id.loc.gov/ontologies/bibframe/">
+        <rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Text"/>
+        <bf:subject>
+            <bf:Topic rdf:about="http://id.loc.gov/resources/works/20290126#Topic650-32">
+                <madsrdf:componentList rdf:parseType="Resource" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                    <bflc:name10MatchKey
+                        xmlns:bflc="http://id.loc.gov/ontologies/bflc/">Anadolu Üniversitesi. Güzel Sanatlar Fakültesi. Grafik Bölümü
+                    </bflc:name10MatchKey>
+                    <bflc:name10MarcKey
+                        xmlns:bflc="http://id.loc.gov/ontologies/bflc/">7102 $aAnadolu Üniversitesi.$bGüzel Sanatlar Fakültesi.$bGrafik Bölümü
+                    </bflc:name10MarcKey>
+                    <rdfs:label
+                        xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Anadolu Üniversitesi. Güzel Sanatlar Fakültesi. Grafik Bölümü
+                    </rdfs:label>
+                    <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#CorporateName"/>
+                </madsrdf:componentList>
+                <madsrdf:authoritativeLabel
+                    xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">Calligraphy--Turkey--Eskişehir--Exhibitions.
+                </madsrdf:authoritativeLabel>
+                <bf:source>
+                    <bf:Source rdf:about="http://id.loc.gov/vocabulary/subjectSchemes/lcsh">
+                        <rdfs:label
+                            xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">LCSH
+                        </rdfs:label>
+                    </bf:Source>
+                </bf:source>
+                <rdfs:label
+                    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Calligraphy--Turkey--Eskişehir--Exhibitions.
+                </rdfs:label>
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+            </bf:Topic>
+        </bf:subject>
+        <bf:subject>
+            <bf:Topic rdf:about="http://id.loc.gov/resources/works/20290126#Topic650-33">
+                <madsrdf:componentList rdf:parseType="Resource"
+                    xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+                </madsrdf:componentList>
+                <madsrdf:authoritativeLabel
+                    xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">Graphic arts--Turkey--Eskişehir--Exhibitions.
+                </madsrdf:authoritativeLabel>
+                <rdfs:label
+                    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Graphic arts--Turkey--Eskişehir--Exhibitions.
+                </rdfs:label>
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+            </bf:Topic>
+        </bf:subject>
+    </bf:Work>
+</rdf:RDF>
+

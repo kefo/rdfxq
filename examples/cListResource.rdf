@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><bf:Work rdf:about="http://id.loc.gov/resources/works/c020290126" xmlns:bf="http://id.loc.gov/ontologies/bibframe/"><rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Text"/><bf:contribution>
+          <bflc:PrimaryContribution xmlns:bflc="http://id.loc.gov/ontologies/bflc/">
+            <bf:role>
+              <bf:Role rdf:about="http://id.loc.gov/vocabulary/relators/ctb"/>
+            </bf:role>
+            <bf:agent>
+              <bf:Agent rdf:about="http://id.loc.gov/resources/works/20290126#Agent111-16">
+                <bflc:primaryContributorName11MatchKey>Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği (8th : 2016 : Eskişehir, Turkey)</bflc:primaryContributorName11MatchKey>
+                <bflc:name11MatchKey>Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği (8th : 2016 : Eskişehir, Turkey)</bflc:name11MatchKey>
+                <bflc:name11MarcKey>1112 $aUluslararası Anadolu Kaligrafi ve Tipografi Etkinliği$n(8th :$d2016 :$cEskişehir, Turkey)</bflc:name11MarcKey>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği (8th : 2016 : Eskişehir, Turkey)</rdfs:label>
+                <rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Meeting"/>
+              </bf:Agent>
+            </bf:agent>
+          </bflc:PrimaryContribution>
+        </bf:contribution><bf:contribution>
+          <bf:Contribution>
+            <bf:role rdf:resource="http://id.loc.gov/vocabulary/relators/ctb"/>
+            <bf:agent>
+              <bf:Agent rdf:about="http://id.loc.gov/resources/works/20290126#Agent710-35">
+                <bflc:name10MatchKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">Anadolu Üniversitesi. Güzel Sanatlar Fakültesi. Grafik Bölümü</bflc:name10MatchKey>
+                <bflc:name10MarcKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">7102 $aAnadolu Üniversitesi.$bGüzel Sanatlar Fakültesi.$bGrafik Bölümü</bflc:name10MarcKey>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Anadolu Üniversitesi. Güzel Sanatlar Fakültesi. Grafik Bölümü</rdfs:label>
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#CorporateName"/>
+              </bf:Agent>
+            </bf:agent>
+          </bf:Contribution>
+        </bf:contribution><bf:title>
+          <bf:Title>
+            <bf:subtitle>7 -18 Kasım 2016 = 8th International Anadolu calligraphy &amp; typography event. 7 -18 November 2016</bf:subtitle>
+            <bf:mainTitle>8. Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği</bf:mainTitle>
+            <bflc:titleSortKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">8. Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği : 7 -18 Kasım 2016 = 8th International Anadolu calligraphy &amp; typography event. 7 -18 November 2016 /</bflc:titleSortKey>
+            <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">8. Uluslararası Anadolu Kaligrafi ve Tipografi Etkinliği : 7 -18 Kasım 2016 = 8th International Anadolu calligraphy &amp; typography event. 7 -18 November 2016 /</rdfs:label>
+          </bf:Title>
+        </bf:title><bf:language>
+          <bf:Language rdf:about="http://id.loc.gov/vocabulary/languages/tur">
+            <rdfs:label xml:lang="en" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Turkish</rdfs:label>
+          </bf:Language>
+        </bf:language><bf:subject>
+          <bf:Topic rdf:about="http://id.loc.gov/resources/works/20290126#Topic650-32">
+            <madsrdf:componentList rdf:parseType="Resource" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+            </madsrdf:componentList>
+            <madsrdf:authoritativeLabel xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">Calligraphy--Turkey--Eskişehir--Exhibitions.</madsrdf:authoritativeLabel>
+            <bf:source>
+              <bf:Source rdf:about="http://id.loc.gov/vocabulary/subjectSchemes/lcsh">
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">LCSH</rdfs:label>
+              </bf:Source>
+            </bf:source>
+            <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Calligraphy--Turkey--Eskişehir--Exhibitions.</rdfs:label>
+            <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+          </bf:Topic>
+        </bf:subject><rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Work"/><bf:content>
+          <bf:Content>
+            <bf:source>
+              <bf:Source>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">rda</rdfs:label>
+              </bf:Source>
+            </bf:source>
+            <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">still image</rdfs:label>
+          </bf:Content>
+        </bf:content><bf:contribution>
+          <bf:Contribution>
+            <bf:role>
+              <bf:Role>
+                <bflc:relatorMatchKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">coordinator</bflc:relatorMatchKey>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">coordinator.</rdfs:label>
+              </bf:Role>
+            </bf:role>
+            <bf:agent>
+              <bf:Agent rdf:about="http://id.loc.gov/resources/works/20290126#Agent700-34">
+                <bflc:name00MatchKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">Şölenay, Emel,</bflc:name00MatchKey>
+                <bflc:name00MarcKey xmlns:bflc="http://id.loc.gov/ontologies/bflc/">7001 $aŞölenay, Emel,$ecoordinator.</bflc:name00MarcKey>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Şölenay, Emel,</rdfs:label>
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#PersonalName"/>
+              </bf:Agent>
+            </bf:agent>
+          </bf:Contribution>
+        </bf:contribution><bf:content rdf:resource="http://id.loc.gov/vocabulary/contentTypes/txt"/><bf:adminMetadata>
+          <bf:AdminMetadata>
+            <bf:source>
+              <bf:Agent>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">DLC</rdfs:label>
+                <rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Source"/>
+              </bf:Agent>
+            </bf:source>
+            <bf:identifiedBy>
+              <bf:Local>
+                <rdf:value>20290126</rdf:value>
+              </bf:Local>
+            </bf:identifiedBy>
+            <bf:descriptionAuthentication rdf:resource="http://id.loc.gov/vocabulary/marcauthen/pcc"/>
+            <bf:source>
+              <bf:Agent>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">DLC</rdfs:label>
+                <rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Source"/>
+              </bf:Agent>
+            </bf:source>
+            <bf:descriptionLanguage rdf:resource="http://id.loc.gov/vocabulary/languages/eng"/>
+            <bf:generationProcess>
+              <bf:GenerationProcess>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">DLC marc2bibframe2 v1.4.0-SNAPSHOT</rdfs:label>
+              </bf:GenerationProcess>
+            </bf:generationProcess>
+            <bf:creationDate>2017-12-13</bf:creationDate>
+            <bf:descriptionConventions>
+              <bf:DescriptionConventions>
+                <bf:code>isbd</bf:code>
+              </bf:DescriptionConventions>
+            </bf:descriptionConventions>
+            <bf:changeDate>2019-02-02T00:45:18</bf:changeDate>
+            <bflc:procInfo xmlns:bflc="http://id.loc.gov/ontologies/bflc/">update instance</bflc:procInfo>
+            <bf:descriptionConventions rdf:resource="http://id.loc.gov/vocabulary/descriptionConventions/rda"/>
+            <bf:status>
+              <bf:Status>
+                <bf:code>c</bf:code>
+              </bf:Status>
+            </bf:status>
+            <bflc:encodingLevel xmlns:bflc="http://id.loc.gov/ontologies/bflc/">
+              <bflc:EncodingLevel>
+                <bf:code>f</bf:code>
+              </bflc:EncodingLevel>
+            </bflc:encodingLevel>
+            <bflc:profile xmlns:bflc="http://id.loc.gov/ontologies/bflc/">profile:bf2:Monograph:Instance</bflc:profile>
+          </bf:AdminMetadata>
+        </bf:adminMetadata><bf:classification>
+          <bf:ClassificationLcc>
+            <bf:itemPortion>K34 2016</bf:itemPortion>
+            <bf:classificationPortion>NK3600</bf:classificationPortion>
+            <bf:source rdf:resource="http://id.loc.gov/vocabulary/organizations/dlc"/>
+          </bf:ClassificationLcc>
+        </bf:classification><bf:subject>
+          <bf:Topic rdf:about="http://id.loc.gov/resources/works/20290126#Topic650-33">
+            <madsrdf:componentList rdf:parseType="Resource" xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">
+            </madsrdf:componentList>
+            <madsrdf:authoritativeLabel xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#">Graphic arts--Turkey--Eskişehir--Exhibitions.</madsrdf:authoritativeLabel>
+            <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">Graphic arts--Turkey--Eskişehir--Exhibitions.</rdfs:label>
+            <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+          </bf:Topic>
+        </bf:subject><bf:language>
+          <bf:Language>
+            <bf:note>
+              <bf:Note>
+                <rdfs:label xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">In Turkish and English</rdfs:label>
+              </bf:Note>
+            </bf:note>
+          </bf:Language>
+        </bf:language></bf:Work></rdf:RDF>
