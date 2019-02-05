@@ -86,7 +86,7 @@ declare function trix2jsonld:trix2jsonld-compact(
     let $triples :=
         for $ds in $distinct-subjects
         let $subjects := $trix//trix:triple[trix:*[1] eq $ds]
-        return trix2jsonld:get-compact-resource($namespaces, $subjects)
+        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix)
     return fn:concat(
                 "{ ", 
                 $context, ', ', 
@@ -180,7 +180,8 @@ declare function trix2jsonld:trix2jsonld-expanded(
 :)
 declare function trix2jsonld:get-compact-resource(
         $namespaces,
-        $subjects as element(trix:triple)*
+        $subjects as element(trix:triple)*,
+        $trix as element(trix:TriX)
     ) as xs:string
 {
     let $id := 
@@ -234,10 +235,11 @@ declare function trix2jsonld:get-compact-resource(
                                 if (fn:name($t) eq "trix:uri") then
                                     fn:concat('{ "@id": "', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:id") then
-                                    if ($t/parent::node()/following-sibling::node()[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                                    if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
                                         (: we have a list :)
-                                        let $listitems := trix2jsonld:get-listitem($t)
-                                        return fn:concat('{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
+                                        let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
+                                        let $listitems := trix2jsonld:get-listitem($li)
+                                        return fn:concat($predicate, '{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
                                     else
                                         fn:concat('{ "@id": "_:', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:typedLiteral") then
@@ -258,9 +260,9 @@ declare function trix2jsonld:get-compact-resource(
                             if (fn:name($t) eq "trix:uri") then
                                 fn:concat($predicate, '{ "@id": "', xs:string($t), '" }')
                             else if (fn:name($t) eq "trix:id") then
-                                if ($t/parent::node()/following-sibling::node()[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                                    (: we have a list :)
-                                    let $listitems := trix2jsonld:get-listitem($t)
+                                if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                                    let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
+                                    let $listitems := trix2jsonld:get-listitem($li)
                                     return fn:concat($predicate, '{ "@list": [ "' , fn:string-join($listitems, '", "'), '" ] }')
                                 else
                                     fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
@@ -383,16 +385,25 @@ declare function trix2jsonld:get-listitem(
         $first
         ) as item()*
 {
-    let $list-item := $first/parent::node()/following-sibling::node()[trix:*[1][. eq $first] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]/trix:*[3]
-    let $next := $first/parent::node()/following-sibling::node()[trix:*[1][. eq $first] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[3]
+    let $list-subject := $first/trix:*[1]
+    let $list-item := $first/trix:*[3]
+    let $next := $first/following-sibling::node()[trix:*[1][. eq $list-subject] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]
     return
-        if (xs:string($next) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil") then
+        if (xs:string($next/trix:*[3]) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil") then
             $list-item
+        else if ( fn:empty($list-item) ) then
+            ()
         else
-            (
-                $list-item,
-                trix2jsonld:get-listitem($next)
-            )
+            let $li := $first/parent::node()/child::node()[trix:*[1][. eq xs:string($next/trix:*[3])] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
+            return
+                if ($li) then
+                    (
+                        $list-item,
+                        trix2jsonld:get-listitem($li)
+                    )
+                else
+                    $list-item
+                
 };
 
 (:~
