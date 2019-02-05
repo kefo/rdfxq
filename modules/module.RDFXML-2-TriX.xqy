@@ -101,11 +101,12 @@ declare function rdfxml2trix:parse_class(
             }
         else 
             ()
+    
     return
-        if ($node/child::node()[fn:not(rdf:type)]) then
+        if ($node/child::node()[fn:name()]) then
             let $properties := 
-                for $i at $pos in $node/child::node()[fn:not(rdf:type) and fn:name()]
-                    return rdfxml2trix:parse_property($i , $subject)
+                for $i in $node/child::node()[fn:name()]
+                return rdfxml2trix:parse_property($i , $subject)
             return 
                 (
                     $triple, 
@@ -135,6 +136,8 @@ declare function rdfxml2trix:parse_property(
             element trix:uri { xs:string($node/@rdf:resource) }
         else if ($node[@rdf:parseType eq "Collection"] and fn:not($node/@rdf:nodeID)) then
             element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1]) }
+        else if ($node[@rdf:parseType eq "Resource"] and fn:not($node/@rdf:nodeID)) then
+            element trix:id { rdfxml2trix:return_bnode($node[fn:name()][1]) }
         else if ($node/child::node()[fn:name()][1]/@rdf:nodeID) then
             element trix:id { fn:concat("_:" , fn:data($node/child::node()[fn:name()][1]/@rdf:nodeID)) }
         else if ($node/child::node()[fn:name()][1]/@rdf:about) then
@@ -185,30 +188,32 @@ declare function rdfxml2trix:parse_property(
             $predicate,
             $object
         }
-        
+
     return
-        if ($node/child::node()[fn:name()] and $node[@rdf:parseType eq "Collection"]) then
-            let $classes := rdfxml2trix:parse_collection($node/child::node()[fn:name()][1] , $object)
-            return 
-                (
-                    $triple, 
-                    $classes
-                )
-            
-        else if ($node/child::node()[fn:name()] and fn:not($node/@rdf:parseType)) then
-            (:  is this the correct "if statement"?  Could there be a parseType 
-                *and* a desire to traverse the tree at this point? :)
-            let $classes := 
-                for $i in $node/child::node()[fn:name()]
-                return rdfxml2trix:parse_class($i , $object)
-            return 
-                (
-                    $triple,
-                    $classes
-                )
+        if ($node/child::node()[fn:name()]) then
+            (
+                $triple, 
+    
+                if ($node/@rdf:parseType eq "Collection") then
+                    let $classes := rdfxml2trix:parse_collection($node/child::node()[fn:name()][1] , $object)
+                    return $classes
+                
+                else if ($node/@rdf:parseType eq "Resource") then
+                    let $class := element rdf:Description { $node/child::node()[fn:name()] }
+                    return rdfxml2trix:parse_class($class , $object)
+                
+                else if (fn:not($node/@rdf:parseType)) then
+                    let $classes := 
+                        for $i in $node/child::node()[fn:name()]
+                        return rdfxml2trix:parse_class($i , $object)
+                    return $classes
+                
+                else
+                    ()
+            )
         else
             $triple
-            
+
 };
 
 (:~
