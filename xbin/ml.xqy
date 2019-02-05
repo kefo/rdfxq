@@ -102,17 +102,35 @@ let $source-trix :=
      
 let $output := 
     if ($o eq "rdfxml") then
-        trix2rdfxml:trix2rdfxml($source-trix, fn:false())
+        (
+            xdmp:add-response-header("Content-type", "application/rdf+xml"),
+            trix2rdfxml:trix2rdfxml($source-trix, fn:false())
+        )
     else if ($o eq "rdfxml-abbrev") then
-        trix2rdfxml:trix2rdfxml($source-trix, fn:true())
+        (
+            xdmp:add-response-header("Content-type", "application/rdf+xml"),
+            trix2rdfxml:trix2rdfxml($source-trix, fn:true())
+        )
     else if ($o eq "jsonld") then
-        trix2jsonld-ml:trix2jsonld($source-trix, fn:false())
+        (
+            xdmp:add-response-header("Content-type", "application/json"),
+            trix2jsonld-ml:trix2jsonld($source-trix, fn:false())
+        )
     else if ($o eq "jsonld-expanded") then
-        trix2jsonld-ml:trix2jsonld($source-trix, fn:true())
+        (
+            xdmp:add-response-header("Content-type", "application/json"),
+            trix2jsonld-ml:trix2jsonld($source-trix, fn:true())
+        )
     else if ($o eq "ntriples") then
-        trix2ntriples:trix2ntriples($source-trix)
+        (
+            xdmp:add-response-header("Content-type", "text/plain"),
+            trix2ntriples:trix2ntriples($source-trix)
+        )
     else if ($o eq "snelson") then
-        xqilla:parse-json($source)
+        (
+            xdmp:add-response-header("Content-type", "application/json"),
+            xqilla:parse-json($source)
+        )
     else
         $source-trix
 
