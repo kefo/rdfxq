@@ -98,7 +98,7 @@ declare function trix2jsonld-ml:trix2jsonld-compact(
         for $key in map:keys($m)
         let $allsubjects := map:get($m, $key)
         let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-compact-resource($namespaces, $subjects)
+        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix)
 
     return fn:concat(
                 "{ ", 
