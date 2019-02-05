@@ -256,7 +256,7 @@ declare function rdfxml2trix:parse_collection(
     let $rest := 
         if ($following_bnode) then
             element trix:triple {
-                $object,
+                $subject,
                 element trix:uri { "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest" },
                 $following_bnode
             }
