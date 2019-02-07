@@ -390,7 +390,10 @@ declare function trix2jsonld:get-listitem(
     let $next := $first/following-sibling::node()[trix:*[1][. eq $list-subject] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]
     return
         if (xs:string($next/trix:*[3]) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil") then
-            fn:concat('{"@id": "', $list-item, '"}')
+            if (fn:name($list-item) eq "trix:uri") then
+                fn:concat('{"@id": "', $list-item, '"}')
+            else
+                fn:concat('{"@id": "_:', $list-item, '"}')
         else if ( fn:empty($list-item) ) then
             ()
         else
@@ -398,7 +401,10 @@ declare function trix2jsonld:get-listitem(
             return
                 if ($li) then
                     (
-                        fn:concat('{"@id": "', $list-item, '"}'),
+                        if (fn:name($list-item) eq "trix:uri") then
+                            fn:concat('{"@id": "', $list-item, '"}')
+                        else
+                            fn:concat('{"@id": "_:', $list-item, '"}'),
                         trix2jsonld:get-listitem($li)
                     )
                 else
