@@ -47,7 +47,7 @@ declare function rdfxml2trix:rdfxml2trix(
     
     let $triples := 
         for $i in $rdfxml/child::node()[fn:name()]
-        return rdfxml2trix:parse_class($i, "")
+        return rdfxml2trix:parse_class($i, "", "")
     let $trix := 
         element trix:TriX {
             $triples
@@ -66,22 +66,42 @@ declare function rdfxml2trix:rdfxml2trix(
 :)
 declare function rdfxml2trix:parse_class(
     $node as node(), 
-    $uri_pass
+    $uri_pass,
+    $uri4bnode
     ) as item()* {
+        
+    let $_uri4bnode := 
+        if ($uri4bnode ne "") then
+            $uri4bnode
+        else
+            let $mainuri := 
+                if (xs:string($uri_pass) ne "") then
+                    $uri_pass
+                else if ($node/@rdf:about ne "") then
+                    element trix:uri { fn:string($node/@rdf:about) }
+                else if ($node/@rdf:about eq "") then
+                    element trix:uri { fn:string($node/ancestor::rdf:RDF[1]/@xml:base) }
+                else if ($node/@rdf:nodeID) then
+                    element trix:id { xs:string($node/@rdf:nodeID) }
+                else if ($node/@rdf:ID ne "" and $node/ancestor::rdf:RDF[1]/@xml:base) then
+                    element trix:uri { fn:concat(xs:string($node/ancestor::rdf:RDF[1]/@xml:base), xs:string($node/@rdf:ID) ) }
+                else
+                    "noidentifier"
+            return rdfxml2trix:return_uri4bnode($mainuri)
     
     let $subject :=
-        if ($node/@rdf:about ne "") then
+        if (xs:string($uri_pass) ne "") then
+            $uri_pass
+        else if ($node/@rdf:about ne "") then
             element trix:uri { fn:string($node/@rdf:about) }
         else if ($node/@rdf:about eq "") then
             element trix:uri { fn:string($node/ancestor::rdf:RDF[1]/@xml:base) }
-        else if ($node/@rdf:ID ne "" and $node/ancestor::rdf:RDF[1]/@xml:base) then
-            element trix:uri { fn:concat(xs:string($node/ancestor::rdf:RDF[1]/@xml:base), xs:string($node/@rdf:ID) ) }
         else if ($node/@rdf:nodeID) then
             element trix:id { xs:string($node/@rdf:nodeID) }
-        else if (xs:string($uri_pass) ne "") then
-            $uri_pass
+        else if ($node/@rdf:ID ne "" and $node/ancestor::rdf:RDF[1]/@xml:base) then
+            element trix:uri { fn:concat(xs:string($node/ancestor::rdf:RDF[1]/@xml:base), xs:string($node/@rdf:ID) ) }
         else
-            element trix:id { rdfxml2trix:return_bnode($node) }
+            element trix:id { rdfxml2trix:return_bnode($node, $_uri4bnode) }
     let $triple := 
         if (fn:local-name($node) eq "Description") then
             (: fn:concat( $uri, " <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <" , $node/child::node()[fn:name(.) eq "rdf:type"]/@rdf:resource , "> . " , fn:codepoints-to-string(10)) :)
@@ -106,7 +126,7 @@ declare function rdfxml2trix:parse_class(
         if ($node/child::node()[fn:name()]) then
             let $properties := 
                 for $i in $node/child::node()[fn:name()]
-                return rdfxml2trix:parse_property($i , $subject)
+                return rdfxml2trix:parse_property($i , $subject, $_uri4bnode)
             return 
                 (
                     $triple, 
@@ -126,7 +146,8 @@ declare function rdfxml2trix:parse_class(
 :)
 declare function rdfxml2trix:parse_property(
     $node as node(), 
-    $subject
+    $subject,
+    $_uri4bnode as xs:string
     ) as element(trix:triple)* {
     
     let $predicate := element trix:uri { fn:concat(fn:namespace-uri($node) , fn:local-name($node)) }
@@ -135,9 +156,9 @@ declare function rdfxml2trix:parse_property(
         if ($node/@rdf:resource) then
             element trix:uri { xs:string($node/@rdf:resource) }
         else if ($node[@rdf:parseType eq "Collection"] and fn:not($node/@rdf:nodeID)) then
-            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1]) }
+            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1], $_uri4bnode) }
         else if ($node[@rdf:parseType eq "Resource"] and fn:not($node/@rdf:nodeID)) then
-            element trix:id { rdfxml2trix:return_bnode($node[fn:name()][1]) }
+            element trix:id { rdfxml2trix:return_bnode($node[fn:name()][1], $_uri4bnode) }
         else if ($node/child::node()[fn:name()][1]/@rdf:nodeID) then
             element trix:id { fn:concat("_:" , fn:data($node/child::node()[fn:name()][1]/@rdf:nodeID)) }
         else if ($node/child::node()[fn:name()][1]/@rdf:about) then
@@ -167,7 +188,7 @@ declare function rdfxml2trix:parse_property(
             return element trix:plainLiteral { $plainLiteral }
             (: '"Comment"' :)
         else if (fn:local-name($node/child::node()[fn:name()][1]) ne "") then
-            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1]) }
+            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1], $_uri4bnode) }
         else
             let $typedLiteral := rdfxml2trix:clean_string(xs:string($node))
             return
@@ -195,17 +216,17 @@ declare function rdfxml2trix:parse_property(
                 $triple, 
     
                 if ($node/@rdf:parseType eq "Collection") then
-                    let $classes := rdfxml2trix:parse_collection($node/child::node()[fn:name()][1] , $object)
+                    let $classes := rdfxml2trix:parse_collection($node/child::node()[fn:name()][1] , $object, $_uri4bnode)
                     return $classes
                 
                 else if ($node/@rdf:parseType eq "Resource") then
                     let $class := element rdf:Description { $node/child::node()[fn:name()] }
-                    return rdfxml2trix:parse_class($class , $object)
+                    return rdfxml2trix:parse_class($class , $object, $_uri4bnode)
                 
                 else if (fn:not($node/@rdf:parseType)) then
                     let $classes := 
                         for $i in $node/child::node()[fn:name()]
-                        return rdfxml2trix:parse_class($i , $object)
+                        return rdfxml2trix:parse_class($i , $object, $_uri4bnode)
                     return $classes
                 
                 else
@@ -226,7 +247,8 @@ declare function rdfxml2trix:parse_property(
 :)
 declare function rdfxml2trix:parse_collection(
     $node as node(), 
-    $subject
+    $subject,
+    $_uri4bnode as xs:string
     ) as item()* {
     
     let $predicate := element trix:uri { "http://www.w3.org/1999/02/22-rdf-syntax-ns#first" }
@@ -239,7 +261,7 @@ declare function rdfxml2trix:parse_collection(
         else if ($node/@rdf:nodeID) then
             element trix:id { xs:string($node/@rdf:nodeID) }
         else
-            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1]) }
+            element trix:id { rdfxml2trix:return_bnode($node/child::node()[fn:name()][1], $_uri4bnode) }
             
     let $triple := 
         element trix:triple {
@@ -267,11 +289,11 @@ declare function rdfxml2trix:parse_collection(
                 element trix:uri { "http://www.w3.org/1999/02/22-rdf-syntax-ns#nil" }
             }
 
-    let $class := rdfxml2trix:parse_class($node, $object)
+    let $class := rdfxml2trix:parse_class($node, $object, $_uri4bnode)
         
     return
         if ($following_bnode) then
-            let $sibling :=  rdfxml2trix:parse_collection($node/following-sibling::node()[fn:name()][1] , $following_bnode)
+            let $sibling :=  rdfxml2trix:parse_collection($node/following-sibling::node()[fn:name()][1] , $following_bnode, $_uri4bnode)
             return 
                 (
                     $triple, 
@@ -290,11 +312,10 @@ declare function rdfxml2trix:parse_collection(
 :   @param  $node       node()
 :   @return _bnode as xs:string
 :)
-declare function rdfxml2trix:return_bnode($node as node()) as xs:string
+declare function rdfxml2trix:return_bnode($node as node(), $_uri4bnode as xs:string) as xs:string
  {
-    let $uri4bnode := rdfxml2trix:return_uri4bnode($node/ancestor-or-self::node()[fn:name()='rdf:RDF']/child::node()[fn:name()][1]/@rdf:about)
     let $unique_num := xs:integer( fn:count($node/ancestor-or-self::node()) + fn:count($node/preceding::node()) )
-    return fn:concat("b" , xs:string($unique_num) , $uri4bnode)
+    return fn:concat("b" , xs:string($unique_num) , $_uri4bnode)
 };
 
 (:~
@@ -304,7 +325,6 @@ declare function rdfxml2trix:return_bnode($node as node()) as xs:string
 :   @return _bnode as xs:string
 :)
 declare function rdfxml2trix:return_bnode_collection($node as node()) as xs:string {
-    let $uri4bnode := rdfxml2trix:return_uri4bnode($node/ancestor-or-self::node()[fn:name()='rdf:RDF']/child::node()[fn:name()][1]/@rdf:about)
     let $unique_num := xs:integer( fn:count($node/ancestor-or-self::node()) + fn:count($node/preceding::node()) )
     return fn:concat("b" , "0" , xs:string($unique_num))
 };
