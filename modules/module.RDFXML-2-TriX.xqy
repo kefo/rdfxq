@@ -362,7 +362,13 @@ declare function rdfxml2trix:clean_string($str as xs:string) as xs:string
     let $str := fn:replace( $str, "\n", "\\r\\n")
     let $str := fn:replace( $str, "’", "'")
     let $str := fn:replace( $str, '“|”', '\\"')
-    let $str := fn:replace( $str, 'ā', '\\u0101')
+    (: 
+        Commented out the below because it was impeding the proper presentation of
+        this particular character. This line was part of the initial commit but 
+        feels at this moment in time that it was one string cleaning rule 
+        too far.
+    :)
+    (: let $str := fn:replace( $str, 'ā', '\\u0101') :)
     return $str
 };
 
