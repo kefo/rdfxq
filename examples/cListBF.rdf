@@ -1,0 +1,99 @@
+<rdf:RDF
+    xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:bf="http://id.loc.gov/ontologies/bibframe/"
+    xmlns:bflc="http://id.loc.gov/ontologies/bflc/"
+    xmlns:lclocal="http://id.loc.gov/ontologies/lclocal/"
+    xmlns:madsrdf="http://www.loc.gov/mads/rdf/v1#"
+    xmlns:relators="http://id.loc.gov/vocabulary/relators/">
+    <bf:Work rdf:about="http://id.loc.gov/resources/works/c019898728">
+        <bf:subject>
+            <bf:Topic rdf:about="http://bibframe.example.org/19898728#Topic600-46">
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+                <madsrdf:authoritativeLabel>Pete, the Cat (Fictitious character)--Juvenile fiction.</madsrdf:authoritativeLabel>
+                <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+                <bf:source>
+                    <bf:Source>
+                        <bf:code>lcsh</bf:code>
+                    </bf:Source>
+                </bf:source>
+                <madsrdf:componentList rdf:parseType="Collection">
+                    <bf:Agent rdf:about="http://id.loc.gov/authorities/names/nb2015002024">
+                        <rdf:type rdf:resource="http://id.loc.gov/ontologies/bibframe/Person"/>
+                        <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#PersonalName"/>
+                        <madsrdf:authoritativeLabel>Pete, the Cat (Fictitious character)</madsrdf:authoritativeLabel>
+                        <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+                        <bf:source>
+                            <bf:Source>
+                                <bf:code>lcsh</bf:code>
+                            </bf:Source>
+                        </bf:source>
+                        <bflc:name00MatchKey>Pete, the Cat (Fictitious character)</bflc:name00MatchKey>
+                        <bflc:name00MarcKey>60000$aPete,$cthe Cat (Fictitious character)$vJuvenile fiction.</bflc:name00MarcKey>
+                        <rdfs:label>Pete, the Cat (Fictitious character)</rdfs:label>
+                    </bf:Agent>
+                    <madsrdf:GenreForm>
+                        <madsrdf:authoritativeLabel>Juvenile fiction</madsrdf:authoritativeLabel>
+                    </madsrdf:GenreForm>
+                </madsrdf:componentList>
+            </bf:Topic>
+        </bf:subject>
+        <bf:subject>
+            <bf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh2008100224">
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+                <rdfs:label>Cats--Juvenile fiction.</rdfs:label>
+                <madsrdf:authoritativeLabel>Cats--Juvenile fiction.</madsrdf:authoritativeLabel>
+                <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+                <madsrdf:componentList rdf:parseType="Collection">
+                    <madsrdf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh85021262">
+                        <madsrdf:authoritativeLabel>Cats</madsrdf:authoritativeLabel>
+                    </madsrdf:Topic>
+                    <madsrdf:GenreForm>
+                        <madsrdf:authoritativeLabel>Juvenile fiction</madsrdf:authoritativeLabel>
+                    </madsrdf:GenreForm>
+                </madsrdf:componentList>
+                <bf:source>
+                    <bf:Source>
+                        <bf:code>lcsh</bf:code>
+                    </bf:Source>
+                </bf:source>
+            </bf:Topic>
+        </bf:subject>
+        <bf:subject>
+            <bf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh2010117634">
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+                <rdfs:label>Valentine's Day--Juvenile fiction.</rdfs:label>
+                <madsrdf:authoritativeLabel>Valentine's Day--Juvenile fiction.</madsrdf:authoritativeLabel>
+                <madsrdf:isMemberOfMADSScheme rdf:resource="http://id.loc.gov/authorities/subjects"/>
+                <madsrdf:componentList rdf:parseType="Collection">
+                    <madsrdf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh85116621">
+                        <madsrdf:authoritativeLabel>Valentine's Day</madsrdf:authoritativeLabel>
+                    </madsrdf:Topic>
+                    <madsrdf:GenreForm>
+                        <madsrdf:authoritativeLabel>Juvenile fiction</madsrdf:authoritativeLabel>
+                    </madsrdf:GenreForm>
+                </madsrdf:componentList>
+                <bf:source>
+                    <bf:Source>
+                        <bf:code>lcsh</bf:code>
+                    </bf:Source>
+                </bf:source>
+            </bf:Topic>
+        </bf:subject>
+        <bf:subject>
+            <bf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh2010117634">
+                <rdf:type rdf:resource="http://www.loc.gov/mads/rdf/v1#ComplexSubject"/>
+                <rdfs:label>Valentine's Day--Juvenile fiction.</rdfs:label>
+                <madsrdf:authoritativeLabel>Valentine's Day--Juvenile fiction.</madsrdf:authoritativeLabel>
+                <madsrdf:componentList rdf:parseType="Collection">
+                    <madsrdf:Topic rdf:about="http://id.loc.gov/authorities/subjects/sh85116621">
+                        <madsrdf:authoritativeLabel>Valentine's Day</madsrdf:authoritativeLabel>
+                    </madsrdf:Topic>
+                    <madsrdf:GenreForm>
+                        <madsrdf:authoritativeLabel>Juvenile fiction</madsrdf:authoritativeLabel>
+                    </madsrdf:GenreForm>
+                </madsrdf:componentList>
+            </bf:Topic>
+        </bf:subject>
+    </bf:Work>
+</rdf:RDF>

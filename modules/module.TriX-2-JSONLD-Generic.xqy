@@ -239,7 +239,7 @@ declare function trix2jsonld:get-compact-resource(
                                         (: we have a list :)
                                         let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
                                         let $listitems := trix2jsonld:get-listitem($li)
-                                        return fn:concat($predicate, '{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
+                                        return fn:concat('{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
                                     else
                                         fn:concat('{ "@id": "_:', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:typedLiteral") then
