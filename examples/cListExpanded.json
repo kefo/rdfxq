@@ -1,0 +1,362 @@
+[
+  {
+    "@id": "_:bnode13authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#TopicElement"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementValue": [
+      {
+        "@language": "en",
+        "@value": "Private flying"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode21authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#TopicElement"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementValue": [
+      {
+        "@language": "en",
+        "@value": "Accidents"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode24authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#Geographic",
+      "http://www.loc.gov/mads/rdf/v1#Authority"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": [
+      {
+        "@language": "en",
+        "@value": "United States"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementList": [
+      {
+        "@list": [
+          {
+            "@id": "_:bnode29authoritiessubjectssh2008001841"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode29authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#GeographicElement"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementValue": [
+      {
+        "@language": "en",
+        "@value": "United States"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode37authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#GenreFormElement"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementValue": [
+      {
+        "@language": "en",
+        "@value": "Periodicals"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode49authoritiessubjectssh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#Source"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#citation-source": [
+      {
+        "@value": "Work cat.: Aircraft accident reports. Brief format, U.S. civil and foreign aviation, NTSB/AAB-83/02; title from cover."
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#citation-status": [
+      {
+        "@value": "found"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode55authoritiessubjectssh2008001841",
+    "@type": [
+      "http://id.loc.gov/ontologies/RecordInfo#RecordInfo"
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#languageOfCataloging": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/iso639-2/eng"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordChangeDate": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2008-03-11T00:00:00"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordContentSource": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/organizations/dlc"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordStatus": [
+      {
+        "@value": "new"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode63authoritiessubjectssh2008001841",
+    "@type": [
+      "http://id.loc.gov/ontologies/RecordInfo#RecordInfo"
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#languageOfCataloging": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/iso639-2/eng"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordChangeDate": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2008-03-21T08:07:45"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordContentSource": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/organizations/dlc"
+      }
+    ],
+    "http://id.loc.gov/ontologies/RecordInfo#recordStatus": [
+      {
+        "@value": "revised"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode77authoritiessubjectssh2008001841",
+    "@type": [
+      "http://purl.org/vocab/changeset/schema#ChangeSet"
+    ],
+    "http://purl.org/vocab/changeset/schema#changeReason": [
+      {
+        "@value": "new"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#createdDate": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2008-03-11T00:00:00"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#creatorName": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/organizations/dlc"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#subjectOfChange": [
+      {
+        "@id": "http://id.loc.gov/authorities/subjects/sh2008001841"
+      }
+    ]
+  },
+  {
+    "@id": "_:bnode85authoritiessubjectssh2008001841",
+    "@type": [
+      "http://purl.org/vocab/changeset/schema#ChangeSet"
+    ],
+    "http://purl.org/vocab/changeset/schema#changeReason": [
+      {
+        "@value": "revised"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#createdDate": [
+      {
+        "@type": "http://www.w3.org/2001/XMLSchema#dateTime",
+        "@value": "2008-03-21T08:07:45"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#creatorName": [
+      {
+        "@id": "http://id.loc.gov/vocabulary/organizations/dlc"
+      }
+    ],
+    "http://purl.org/vocab/changeset/schema#subjectOfChange": [
+      {
+        "@id": "http://id.loc.gov/authorities/subjects/sh2008001841"
+      }
+    ]
+  },
+  {
+    "@id": "http://id.loc.gov/authorities/childrensSubjects/sj96004687",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#Topic",
+      "http://www.loc.gov/mads/rdf/v1#Authority"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": [
+      {
+        "@language": "en",
+        "@value": "Accidents"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementList": [
+      {
+        "@list": [
+          {
+            "@id": "_:bnode21authoritiessubjectssh2008001841"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "http://id.loc.gov/authorities/genreForms/gf2014026139",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#GenreForm",
+      "http://www.loc.gov/mads/rdf/v1#Authority"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": [
+      {
+        "@language": "en",
+        "@value": "Periodicals"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementList": [
+      {
+        "@list": [
+          {
+            "@id": "_:bnode37authoritiessubjectssh2008001841"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "@id": "http://id.loc.gov/authorities/subjects/sh2008001841",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#ComplexSubject",
+      "http://www.loc.gov/mads/rdf/v1#Authority",
+      "http://www.w3.org/2004/02/skos/core#Concept"
+    ],
+    "http://id.loc.gov/vocabulary/identifiers/lccn": [
+      {
+        "@value": "sh2008001841"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#adminMetadata": [
+      {
+        "@id": "_:bnode55authoritiessubjectssh2008001841"
+      },
+      {
+        "@id": "_:bnode63authoritiessubjectssh2008001841"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": [
+      {
+        "@language": "en",
+        "@value": "Private flying--Accidents--United States--Periodicals"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#componentList": [
+      {
+        "@list": [
+          {
+            "@id": "http://id.loc.gov/authorities/subjects/sh85107035"
+          },
+          {
+            "@id": "http://id.loc.gov/authorities/childrensSubjects/sj96004687"
+          },
+          {
+            "@id": "_:bnode24authoritiessubjectssh2008001841"
+          },
+          {
+            "@id": "http://id.loc.gov/authorities/genreForms/gf2014026139"
+          }
+        ]
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#editorialNote": [
+      {
+        "@value": "[Record generated for validation purposes.]"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#hasSource": [
+      {
+        "@id": "_:bnode49authoritiessubjectssh2008001841"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#isMemberOfMADSCollection": [
+      {
+        "@id": "http://id.loc.gov/authorities/subjects/collection_LCSHAuthorizedHeadings"
+      },
+      {
+        "@id": "http://id.loc.gov/authorities/subjects/collection_LCSH_General"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#isMemberOfMADSScheme": [
+      {
+        "@id": "http://id.loc.gov/authorities/subjects"
+      }
+    ],
+    "http://www.w3.org/2002/07/owl#sameAs": [
+      {
+        "@id": "info:lc/authorities/sh2008001841"
+      },
+      {
+        "@id": "http://id.loc.gov/authorities/sh2008001841#concept"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#changeNote": [
+      {
+        "@id": "_:bnode77authoritiessubjectssh2008001841"
+      },
+      {
+        "@id": "_:bnode85authoritiessubjectssh2008001841"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#editorial": [
+      {
+        "@value": "[Record generated for validation purposes.]"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#inScheme": [
+      {
+        "@id": "http://id.loc.gov/authorities/subjects"
+      }
+    ],
+    "http://www.w3.org/2004/02/skos/core#prefLabel": [
+      {
+        "@language": "en",
+        "@value": "Private flying--Accidents--United States--Periodicals"
+      }
+    ]
+  },
+  {
+    "@id": "http://id.loc.gov/authorities/subjects/sh85107035",
+    "@type": [
+      "http://www.loc.gov/mads/rdf/v1#Topic",
+      "http://www.loc.gov/mads/rdf/v1#Authority"
+    ],
+    "http://www.loc.gov/mads/rdf/v1#authoritativeLabel": [
+      {
+        "@language": "en",
+        "@value": "Private flying"
+      }
+    ],
+    "http://www.loc.gov/mads/rdf/v1#elementList": [
+      {
+        "@list": [
+          {
+            "@id": "_:bnode13authoritiessubjectssh2008001841"
+          }
+        ]
+      }
+    ]
+  }
+]

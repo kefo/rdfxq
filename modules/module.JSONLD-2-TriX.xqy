@@ -267,8 +267,12 @@ declare function jsonld2trix:parse-object(
             ( fn:not($object/pair[@name eq "@id"]) or $object/pair[@name eq "@id"][1] eq "" )
             ) then
             xs:string($context/fileuri)
-        else
+        else if ( fn:exists($object/pair[@name eq "@id"]) ) then
             $object/pair[@name eq "@id"][1]
+        else
+            let $u := jsonld2trix:set-uri($object, $context)
+            return fn:replace($u, "_:", "")
+
     let $ts := 
         for $p in $object/pair[@name ne "@id" and @name ne "@context" and @name ne "@graph"]
         let $prop := $context/prop[@name eq xs:string($p/@name)][1]
@@ -315,7 +319,7 @@ declare function jsonld2trix:parse-object(
                     }
                     return jsonld2trix:create-triple($uri, xs:string($prop), $o)
                     
-            else if ($p/@type eq "array" and $prop/@container ne "@list") then
+            else if ($p/@type eq "array" and ($prop/@container ne "@list" and $prop/@name ne "@list")) then
                 for $a at $pos in $p/item
                 return
                     if ($prop/@datatype eq "@id") then
@@ -345,7 +349,7 @@ declare function jsonld2trix:parse-object(
                                 else
                                     element trix:uri { $id }
                             return jsonld2trix:create-triple($uri, xs:string($prop), $o)
-                        else if ( fn:count($a/pair[@name eq "@id"]) eq 0 ) then
+                        else if ( (fn:count($a/pair[@name eq "@id"]) eq 0) and fn:exists($a/pair[@name eq "@value"]) ) then
                             let $o := 
                                 if ($a/pair[@name eq "@type"]) then
                                     element trix:typedLiteral {
@@ -425,7 +429,7 @@ declare function jsonld2trix:parse-object(
                             $p/pair[1][@type eq "array"] and
                             $p/pair[1][@name eq "@list"]
                         ) or (
-                            $p/@type eq "array" and $prop/@container eq "@list"
+                            $p/@type eq "array" and ($prop/@container eq "@list" or $prop/@name eq "@list")
                         )
                     ) then
                 let $items := 
@@ -504,7 +508,7 @@ declare function jsonld2trix:parse-object(
                     if ($pos eq 1) then
                         (: needs a first and rest :)
                         (
-                            jsonld2trix:create-triple($uri, xs:string($prop), $subject),
+                            (: jsonld2trix:create-triple($uri, xs:string($prop), $subject), :)
                             jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#first", $object-uri),
                             jsonld2trix:create-triple($subject, "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest", $following-uri),
                             $object
