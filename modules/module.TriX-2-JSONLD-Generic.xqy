@@ -128,7 +128,13 @@ declare function trix2jsonld:trix2jsonld-expanded(
                     if (fn:name($t) eq "trix:uri") then
                         fn:concat('"@id": "', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:id") then
-                        fn:concat('"@id": "_:', xs:string($t), '"')
+                        if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                            (: we have a list :)
+                            let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
+                            let $listitems := trix2jsonld:get-listitem($li)
+                            return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
+                        else
+                            fn:concat('"@id": "_:', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:typedLiteral") then
                         fn:string-join(
                             (
@@ -312,7 +318,8 @@ declare function trix2jsonld:get-context($namespaces)
 :   @return item()*
 :)
 declare function trix2jsonld:get-expanded-resource(
-        $subjects as element(trix:triple)*
+        $subjects as element(trix:triple)*,
+        $trix as element(trix:TriX)
     ) as xs:string
 {
     let $id := 
@@ -339,7 +346,13 @@ declare function trix2jsonld:get-expanded-resource(
                     if (fn:name($t) eq "trix:uri") then
                         fn:concat('"@id": "', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:id") then
-                        fn:concat('"@id": "_:', xs:string($t), '"')
+                        if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
+                            (: we have a list :)
+                            let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
+                            let $listitems := trix2jsonld:get-listitem($li)
+                            return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
+                        else
+                            fn:concat('"@id": "_:', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:typedLiteral") then
                         fn:string-join(
                             (

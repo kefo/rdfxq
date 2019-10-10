@@ -121,7 +121,7 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
     ) as xs:string
 {
 
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple/trix:*[1])
+    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
     let $m := map:map()
     let $build := 
         for $t in $distinct-subjects
@@ -148,7 +148,7 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
         for $key in map:keys($m)
         let $allsubjects := map:get($m, $key)
         let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-expanded-resource($subjects)
+        return trix2jsonld:get-expanded-resource($subjects, $trix)
         
     return fn:concat(
                 "[ ", 

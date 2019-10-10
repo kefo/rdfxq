@@ -128,7 +128,7 @@ let $output :=
         )
     else if ($o eq "snelson") then
         (
-            xdmp:add-response-header("Content-type", "application/json"),
+            xdmp:add-response-header("Content-type", "application/xml"),
             xqilla:parse-json($source)
         )
     else
