@@ -361,6 +361,7 @@ declare function rdfxml2trix:clean_string($str as xs:string) as xs:string
     let $str := fn:replace( $str, '\\', '\\\\')
     let $str := fn:replace( $str , '&quot;' , '\\"')
     let $str := fn:replace( $str, "\n", "\\r\\n")
+    let $str := fn:replace( $str, "\t", "\\t")
     let $str := fn:replace( $str, "’", "'")
     let $str := fn:replace( $str, '“|”', '\\"')
 
