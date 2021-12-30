@@ -36,6 +36,7 @@ import module namespace xqilla = "http://xqilla.sourceforge.net/Functions" at ".
 import module namespace trix2ntriples = "http://3windmills.com/rdfxq/modules/trix2ntriples#" at "../modules/module.TriX-2-Ntriples.xqy";
 import module namespace trix2jsonld-ml = "http://3windmills.com/rdfxq/modules/trix2jsonld-ml#" at "../modules/module.TriX-2-JSONLD-MarkLogic.xqy";
 import module namespace trix2rdfxml = "http://3windmills.com/rdfxq/modules/trix2rdfxml#" at "../modules/module.TriX-2-RDFXML.xqy";
+import module namespace trix2mlsemtriples   = "http://3windmills.com/rdfxq/modules/trix2mlsemtriples#" at "../modules/module.TriX-2-MLSemTriples.xqy";
 
 import module namespace rdfxqshared     = "http://3windmills.com/rdfxq/modules/rdfxqshared#" at "../modules/module.Shared.xqy";
 
@@ -130,6 +131,11 @@ let $output :=
         (
             xdmp:add-response-header("Content-type", "application/xml"),
             xqilla:parse-json($source)
+        )
+    else if ($o eq "semtriples") then
+        (
+            xdmp:add-response-header("Content-type", "application/xml"),
+            trix2mlsemtriples:trix2mlsemtriples($source-trix)
         )
     else
         $source-trix
