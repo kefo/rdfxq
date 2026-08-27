@@ -330,18 +330,20 @@ declare function trix2jsonld:get-expanded-resource(
     let $distinct-predicates := fn:distinct-values($subjects/trix:*[2])
     let $predicates := 
         for $dp in $distinct-predicates
-        let $ts := $subjects[trix:*[2] eq $dp]
         let $predicate := 
             if (xs:string($dp) eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#type") then
                 '"@type": '
             else
                 fn:concat('"' , xs:string($dp), '": ')
+        
+        let $ts := $subjects[trix:*[2] eq $dp]
         let $object := 
             if (fn:contains($predicate,"@type")) then
-                for $t in $ts/trix:*[3]
+                for $t in fn:distinct-values($ts/trix:*[3])
                 return fn:concat('"', xs:string($t), '"')
             else
-                for $t in $ts/trix:*[3]
+                for $tdistinct in fn:distinct-values($ts/trix:*[3])
+                let $t := ($ts/trix:*[3][. = $tdistinct])[1]
                 let $o :=
                     if (fn:name($t) eq "trix:uri") then
                         fn:concat('"@id": "', xs:string($t), '"')
