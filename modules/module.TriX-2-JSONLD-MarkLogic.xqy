@@ -88,17 +88,28 @@ declare function trix2jsonld-ml:trix2jsonld-compact(
     let $namespaces := rdfxqshared:namespaces-from-trix($trix)
     let $context := trix2jsonld:get-context($namespaces)
     
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
+    (: Walk the tree once and bucket the triples by subject in a single pass.
+     : The previous version looped over the distinct subjects and re-scanned
+     : //trix:triple for each one, which is O(subjects x triples) and cannot be
+     : index-resolved because $trix is a constructed, in-memory node.  It also
+     : built one element trix:Trix copy per subject, copying most of the tree
+     : once per subject; the buckets now hold the original nodes instead. :)
+    let $all-triples := $trix//trix:triple
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
     let $m := map:map()
-    let $build := 
-        for $t in $distinct-subjects
-        return map:put($m, xs:string($t), element trix:Trix { $trix//trix:triple[trix:*[1] eq $t] })
-    
-    let $triples := 
+    let $build :=
+        for $t in $all-triples
+        let $s := xs:string($t/trix:*[1])
+        return map:put($m, $s, (map:get($m, $s), $t))
+
+    let $triples :=
         for $key in map:keys($m)
-        let $allsubjects := map:get($m, $key)
-        let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix)
+        let $subjects := map:get($m, $key)
+        (: Subjects that only ever carry rdf:first/rdf:rest are list nodes; they
+         : are serialised inline as "@list" by the resource that points at them,
+         : so they are not emitted as members of "@graph". :)
+        where $subjects[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]
+        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix, $list-firsts)
 
     return fn:concat(
                 "{ ", 
@@ -121,12 +132,15 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
     ) as xs:string
 {
 
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
+    (: Single pass bucketing by subject; see trix2jsonld-compact above for why. :)
+    let $all-triples := $trix//trix:triple
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
     let $m := map:map()
-    let $build := 
-        for $t in $distinct-subjects
-        return map:put($m, xs:string($t), element trix:Trix { $trix//trix:triple[trix:*[1] eq $t] })
-    
+    let $build :=
+        for $t in $all-triples
+        let $s := xs:string($t/trix:*[1])
+        return map:put($m, $s, (map:get($m, $s), $t))
+
     (:
     This appeared to make no speed difference.
     Keeping, for now, as a marker of something that has been tried and found 
@@ -144,14 +158,14 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
                 ()
     :)
     
-    let $triples := 
+    let $triples :=
         for $key in map:keys($m)
-        let $allsubjects := map:get($m, $key)
-        let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-expanded-resource($subjects, $trix)
-        
+        let $subjects := map:get($m, $key)
+        where $subjects[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]
+        return trix2jsonld:get-expanded-resource($subjects, $trix, $list-firsts)
+
     return fn:concat(
-                "[ ", 
+                "[ ",
                 fn:string-join($triples, ", "),
                 " ]"
                 )
