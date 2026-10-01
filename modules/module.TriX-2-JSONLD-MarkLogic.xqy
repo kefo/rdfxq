@@ -88,7 +88,12 @@ declare function trix2jsonld-ml:trix2jsonld-compact(
     let $namespaces := rdfxqshared:namespaces-from-trix($trix)
     let $context := trix2jsonld:get-context($namespaces)
     
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
+    let $all-triples := $trix//trix:triple
+    (: The rdf:first triples are the only possible list heads, so collect them
+     : once instead of re-scanning the whole document per blank node object. :)
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
+    let $distinct-subjects := fn:distinct-values($all-triples[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
+
     let $m := map:map()
     let $build := 
         for $t in $distinct-subjects
@@ -98,7 +103,7 @@ declare function trix2jsonld-ml:trix2jsonld-compact(
         for $key in map:keys($m)
         let $allsubjects := map:get($m, $key)
         let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix)
+        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix, $list-firsts)
 
     return fn:concat(
                 "{ ", 
@@ -120,8 +125,13 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
         $trix as element(trix:TriX)
     ) as xs:string
 {
+    
+    let $all-triples := $trix//trix:triple
+    (: The rdf:first triples are the only possible list heads, so collect them
+     : once instead of re-scanning the whole document per blank node object. :)
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
+    let $distinct-subjects := fn:distinct-values($all-triples[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
 
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
     let $m := map:map()
     let $build := 
         for $t in $distinct-subjects
@@ -148,7 +158,7 @@ declare function trix2jsonld-ml:trix2jsonld-expanded(
         for $key in map:keys($m)
         let $allsubjects := map:get($m, $key)
         let $subjects := $allsubjects//trix:triple
-        return trix2jsonld:get-expanded-resource($subjects, $trix)
+        return trix2jsonld:get-expanded-resource($subjects, $trix, $list-firsts)
         
     return fn:concat(
                 "[ ", 

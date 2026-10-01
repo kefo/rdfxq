@@ -82,11 +82,15 @@ declare function trix2jsonld:trix2jsonld-compact(
 
     let $namespaces := rdfxqshared:namespaces-from-trix($trix)
     let $context := trix2jsonld:get-context($namespaces)
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
+    let $all-triples := $trix//trix:triple
+    (: The rdf:first triples are the only possible list heads, so collect them
+     : once instead of re-scanning the whole document per blank node object. :)
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
+    let $distinct-subjects := fn:distinct-values($all-triples[trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"] and trix:*[2][. ne "http://www.w3.org/1999/02/22-rdf-syntax-ns#rest"]]/trix:*[1])
     let $triples :=
         for $ds in $distinct-subjects
         let $subjects := $trix//trix:triple[trix:*[1] eq $ds]
-        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix)
+        return trix2jsonld:get-compact-resource($namespaces, $subjects, $trix, $list-firsts)
     return fn:concat(
                 "{ ", 
                 $context, ', ', 
@@ -108,7 +112,9 @@ declare function trix2jsonld:trix2jsonld-expanded(
     ) as xs:string
 {
 
-    let $distinct-subjects := fn:distinct-values($trix//trix:triple/trix:*[1])
+    let $all-triples := $trix//trix:triple
+    let $list-firsts := trix2jsonld:get-list-firsts($all-triples)
+    let $distinct-subjects := fn:distinct-values($all-triples/trix:*[1])
     let $triples :=
         for $ds in $distinct-subjects
         let $subjects := $trix//trix:triple[trix:*[1] eq $ds]
@@ -128,13 +134,14 @@ declare function trix2jsonld:trix2jsonld-expanded(
                     if (fn:name($t) eq "trix:uri") then
                         fn:concat('"@id": "', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:id") then
-                        if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                            (: we have a list :)
-                            let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
-                            let $listitems := trix2jsonld:get-listitem($li)
-                            return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
-                        else
-                            fn:concat('"@id": "_:', xs:string($t), '"')
+                        let $li := $list-firsts[trix:*[1] eq $t]
+                        return
+                            if ($li) then
+                                (: we have a list :)
+                                let $listitems := trix2jsonld:get-listitem($li)
+                                return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
+                            else
+                                fn:concat('"@id": "_:', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:typedLiteral") then
                         fn:string-join(
                             (
@@ -187,7 +194,8 @@ declare function trix2jsonld:trix2jsonld-expanded(
 declare function trix2jsonld:get-compact-resource(
         $namespaces,
         $subjects as element(trix:triple)*,
-        $trix as element(trix:TriX)
+        $trix as element(trix:TriX),
+        $list-firsts as element(trix:triple)*
     ) as xs:string
 {
     let $id := 
@@ -241,13 +249,14 @@ declare function trix2jsonld:get-compact-resource(
                                 if (fn:name($t) eq "trix:uri") then
                                     fn:concat('{ "@id": "', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:id") then
-                                    if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                                        (: we have a list :)
-                                        let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
-                                        let $listitems := trix2jsonld:get-listitem($li)
-                                        return fn:concat('{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
-                                    else
-                                        fn:concat('{ "@id": "_:', xs:string($t), '" }')
+                                    let $li := $list-firsts[trix:*[1] eq $t]
+                                    return
+                                        if ($li) then
+                                            (: we have a list :)
+                                            let $listitems := trix2jsonld:get-listitem($li)
+                                            return fn:concat('{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
+                                        else
+                                            fn:concat('{ "@id": "_:', xs:string($t), '" }')
                                 else if (fn:name($t) eq "trix:typedLiteral") then
                                     fn:concat('{ "@type": "', xs:string($t/@datatype), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                                 else if ($t/@xml:lang) then
@@ -266,12 +275,13 @@ declare function trix2jsonld:get-compact-resource(
                             if (fn:name($t) eq "trix:uri") then
                                 fn:concat($predicate, '{ "@id": "', xs:string($t), '" }')
                             else if (fn:name($t) eq "trix:id") then
-                                if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                                    let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
-                                    let $listitems := trix2jsonld:get-listitem($li)
-                                    return fn:concat($predicate, '{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
-                                else
-                                    fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
+                                let $li := $list-firsts[trix:*[1] eq $t]
+                                return
+                                    if ($li) then
+                                        let $listitems := trix2jsonld:get-listitem($li)
+                                        return fn:concat($predicate, '{ "@list": [' , fn:string-join($listitems, ', '), ' ] }')
+                                    else
+                                        fn:concat($predicate, '{ "@id": "_:', xs:string($t), '" }')
                             else if (fn:name($t) eq "trix:typedLiteral") then
                                 fn:concat($predicate, '{ "@type": "', xs:string($t/@datatype), '", "@value": "', trix2jsonld:clean-string(xs:string($t)), '" }')
                             else if ($t/@xml:lang) then
@@ -319,7 +329,8 @@ declare function trix2jsonld:get-context($namespaces)
 :)
 declare function trix2jsonld:get-expanded-resource(
         $subjects as element(trix:triple)*,
-        $trix as element(trix:TriX)
+        $trix as element(trix:TriX),
+        $list-firsts as element(trix:triple)*
     ) as xs:string
 {
     let $id := 
@@ -348,13 +359,14 @@ declare function trix2jsonld:get-expanded-resource(
                     if (fn:name($t) eq "trix:uri") then
                         fn:concat('"@id": "', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:id") then
-                        if ($trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]) then
-                            (: we have a list :)
-                            let $li := $trix//trix:triple[trix:*[1][. eq $t] and trix:*[2][. eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]]
-                            let $listitems := trix2jsonld:get-listitem($li)
-                            return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
-                        else
-                            fn:concat('"@id": "_:', xs:string($t), '"')
+                        let $li := $list-firsts[trix:*[1] eq $t]
+                        return
+                            if ($li) then
+                                (: we have a list :)
+                                let $listitems := trix2jsonld:get-listitem($li)
+                                return fn:concat('"@list": [' , fn:string-join($listitems, ', '), ' ]')
+                            else
+                                fn:concat('"@id": "_:', xs:string($t), '"')
                     else if (fn:name($t) eq "trix:typedLiteral") then
                         fn:string-join(
                             (
@@ -389,6 +401,23 @@ declare function trix2jsonld:get-expanded-resource(
         )
 };
 
+
+(:~
+:   Returns the rdf:first triples in $triples, i.e. every possible RDF list
+:   head.  Collecting these once lets callers test "is this blank node a list?"
+:   with a filter over a short sequence instead of a full document scan per
+:   blank node.  Node identity is preserved, which get-listitem depends on for
+:   its following-sibling/parent navigation.
+:
+:   @param  $triples        as element(trix:triple)* are the triples to search
+:   @return element(trix:triple)*
+:)
+declare function trix2jsonld:get-list-firsts(
+        $triples as element(trix:triple)*
+    ) as element(trix:triple)*
+{
+    $triples[trix:*[2] eq "http://www.w3.org/1999/02/22-rdf-syntax-ns#first"]
+};
 
 (:~
 :   This recusively returns list items.
